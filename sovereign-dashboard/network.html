@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧬 AZIREM Agent Network</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #030308;
+            --bg-cosmic: #080812;
+            --bg-panel: rgba(12, 12, 24, 0.85);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #9f4fff;
+            --neon-green: #00ff9d;
+            --neon-gold: #ffd700;
+            --neon-red: #ff4f6f;
+            --neon-blue: #4f8fff;
+            --text-primary: #e8e8ff;
+            --text-muted: #5a5a7a;
+            --gradient-sovereign: linear-gradient(135deg, #00f0ff 0%, #9f4fff 50%, #ff00aa 100%);
+            --font-display: 'Orbitron', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-void);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            height: 100vh;
+        }
+
+        /* Network Graph Area */
+        .network-area {
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.05) 0%, transparent 70%);
+        }
+
+        #network-graph {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Header */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* Positioned relative to content-box (inside body padding)? No, fixed/absolute escapes padding if relative to viewport. */
+            /* Actually, if body is relative, absolute lines up with padding edge. */
+            width: 100%;
+            height: 60px;
+            background: var(--bg-panel);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            z-index: 100;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: var(--gradient-sovereign);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: 3rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--neon-cyan);
+        }
+
+        .stats {
+            margin-left: auto;
+            display: flex;
+            gap: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-value {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-panel);
+            border-left: 1px solid rgba(0, 240, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+        }
+
+        .sidebar-title {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+        }
+
+        /* Message Stream */
+        .message-stream {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .message-item {
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--neon-cyan);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-agents {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .message-agents .sender {
+            color: var(--neon-purple);
+        }
+
+        .message-agents .arrow {
+            color: var(--text-muted);
+            margin: 0 0.5rem;
+        }
+
+        .message-agents .recipient {
+            color: var(--neon-green);
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .message-content {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .message-type {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            background: rgba(0, 240, 255, 0.15);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--neon-cyan);
+            margin-bottom: 0.25rem;
+        }
+
+        /* Agent Details Panel */
+        .agent-details {
+            padding: 1rem;
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .agent-details-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .selected-agent {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .selected-agent-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-sovereign);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .selected-agent-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .selected-agent-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .capability {
+            padding: 0.25rem 0.5rem;
+            background: rgba(159, 79, 255, 0.15);
+            border: 1px solid rgba(159, 79, 255, 0.3);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--neon-purple);
+        }
+
+        /* Graph Styles */
+        .node {
+            cursor: pointer;
+        }
+
+        .node circle {
+            stroke-width: 2px;
+            transition: all 0.3s;
+        }
+
+        .node:hover circle {
+            filter: brightness(1.3);
+            stroke-width: 4px;
+        }
+
+        .node.selected circle {
+            stroke: var(--neon-gold) !important;
+            stroke-width: 4px;
+        }
+
+        .node text {
+            fill: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 11px;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+
+        .link {
+            stroke: rgba(0, 240, 255, 0.2);
+            stroke-width: 1.5;
+        }
+
+        .link.active {
+            stroke: var(--neon-cyan);
+            stroke-width: 3;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Message particles */
+        .message-particle {
+            fill: var(--neon-green);
+            filter: drop-shadow(0 0 3px var(--neon-green));
+        }
+
+        /* Controls */
+        .controls {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-panel);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--neon-cyan);
+        }
+
+        .control-btn.primary {
+            background: var(--gradient-sovereign);
+            border: none;
+            font-weight: 600;
+        }
+
+        /* Legend */
+        .legend {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 370px;
+            background: var(--bg-panel);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .legend-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .legend-items {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">🧬 AZIREM NETWORK</div>
+        <!-- Nav links removed, using Sovereign Breadcrumb -->
+        <div class="stats">
+            <div class="stat">
+                <span>Agents:</span>
+                <span class="stat-value" id="agent-count">0</span>
+            </div>
+            <div class="stat">
+                <span>Messages:</span>
+                <span class="stat-value" id="message-count">0</span>
+            </div>
+            <div class="stat">
+                <span>Status:</span>
+                <span class="stat-value" id="connection-status">Connecting...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="network-area">
+            <svg id="network-graph"></svg>
+
+            <div class="controls">
+                <button class="control-btn primary" onclick="triggerDiscovery()">🔍 Discover Features</button>
+                <button class="control-btn" onclick="broadcastMessage()">📡 Broadcast</button>
+                <button class="control-btn" onclick="resetGraph()">🔄 Reset</button>
+            </div>
+
+            <div class="legend">
+                <div class="legend-title">AGENT TYPES</div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--neon-cyan)"></div> Core
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--neon-purple)"></div> Scanner
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--neon-green)"></div> MCP
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--neon-gold)"></div> Video
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">📡 AGENT COMMUNICATIONS</div>
+            </div>
+            <div class="message-stream" id="message-stream">
+                <!-- Messages will be added here -->
+            </div>
+            <div class="agent-details" id="agent-details">
+                <div class="agent-details-title">SELECTED AGENT</div>
+                <div id="selected-agent-content">
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Click an agent node to see details</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let ws = null;
+        let agents = [];
+        let messages = [];
+        let selectedAgent = null;
+        let simulation = null;
+
+        // D3 Graph Setup
+        const svg = d3.select("#network-graph");
+
+        // Dynamic resize handler
+        function updateDimensions() {
+            const container = document.querySelector('.network-area');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            svg.attr("viewBox", [0, 0, width, height]);
+            if (simulation) {
+                simulation.force("center", d3.forceCenter(width / 2, height / 2));
+                simulation.alpha(0.3).restart();
+            }
+        }
+
+        window.addEventListener('resize', updateDimensions);
+        // Initial setup handled in loadInitialData or after DOM ready
+
+        const g = svg.append("g");
+
+        // Zoom
+        svg.call(d3.zoom()
+            .extent([[0, 0], [width, height]])
+            .scaleExtent([0.5, 3])
+            .on("zoom", ({ transform }) => g.attr("transform", transform)));
+
+        // Agent type colors
+        const typeColors = {
+            "Master Orchestrator": "#00f0ff",
+            "Code Scanner": "#9f4fff",
+            "Pattern Classifier": "#9f4fff",
+            "Pattern Extractor": "#9f4fff",
+            "Code Summarizer": "#9f4fff",
+            "Self-Evolver": "#00ff9d",
+            "Web Researcher": "#4f8fff",
+            "System Architect": "#4f8fff",
+            "Memory Agent": "#ff00aa",
+            "Vector Embedder": "#ff00aa",
+            "Doc Generator": "#ffd700",
+            "MCP Tool Agent": "#00ff9d",
+            "Video Generator": "#ffd700"
+        };
+
+        // Initialize WebSocket
+        function connectWebSocket() {
+            const port = window.location.port || 8082;
+            const wsUrl = `ws://${window.location.hostname}:${port}/ws/stream`;
+            ws = new WebSocket(wsUrl);
+
+            ws.onopen = () => {
+                document.getElementById("connection-status").textContent = "Connected";
+                document.getElementById("connection-status").style.color = "#00ff9d";
+                // loadInitialData(); - Called on load now
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleMessage(data);
+            };
+
+            ws.onclose = () => {
+                document.getElementById("connection-status").textContent = "Disconnected";
+                document.getElementById("connection-status").style.color = "#ff4f6f";
+                setTimeout(connectWebSocket, 3000);
+            };
+        }
+
+        // Load initial data
+        async function loadInitialData() {
+            try {
+                // Load agents
+                const agentsRes = await fetch("/api/agents/all");
+                const agentsData = await agentsRes.json();
+                agents = agentsData.agents || [];
+                document.getElementById("agent-count").textContent = agents.length;
+
+                // Load communications
+                const commsRes = await fetch("/api/agents/communications?limit=50");
+                const commsData = await commsRes.json();
+                messages = commsData.communications || [];
+                document.getElementById("message-count").textContent = messages.length;
+
+                // Render
+                updateDimensions(); // Set initial size
+                renderGraph();
+                renderMessages();
+            } catch (err) {
+                console.error("Failed to load initial data:", err);
+            }
+        }
+
+        // Handle WebSocket messages
+        function handleMessage(data) {
+            if (data.type === "agent_message") {
+                const msg = data.data.message;
+                messages.unshift(msg);
+                messages = messages.slice(0, 100); // Keep last 100
+                document.getElementById("message-count").textContent = messages.length;
+                renderMessages();
+                animateMessage(msg);
+            } else if (data.type === "heartbeat") {
+                // Update status
+            }
+        }
+
+        // Render D3 Graph
+        function renderGraph() {
+            // Clear existing
+            g.selectAll("*").remove();
+
+            // Create links between agents (fully connected for demo)
+            const links = [];
+            for (let i = 0; i < agents.length; i++) {
+                for (let j = i + 1; j < agents.length; j++) {
+                    if (Math.random() > 0.6) { // Random connections
+                        links.push({ source: agents[i].id, target: agents[j].id });
+                    }
+                }
+            }
+
+            // Create nodes
+            const nodes = agents.map(a => ({
+                id: a.id,
+                name: a.name,
+                icon: a.icon,
+                role: a.role,
+                status: a.status,
+                capabilities: a.capabilities,
+                color: typeColors[a.role] || "#00f0ff"
+            }));
+
+            // Force simulation
+            const container = document.querySelector('.network-area');
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+
+            simulation = d3.forceSimulation(nodes)
+                .force("link", d3.forceLink(links).id(d => d.id).distance(150))
+                .force("charge", d3.forceManyBody().strength(-400))
+                .force("center", d3.forceCenter(w / 2, h / 2))
+                .force("collision", d3.forceCollide().radius(50));
+
+            // Draw links
+            const link = g.append("g")
+                .selectAll("line")
+                .data(links)
+                .join("line")
+                .attr("class", "link")
+                .attr("stroke-opacity", 0.4);
+
+            // Draw nodes
+            const node = g.append("g")
+                .selectAll("g")
+                .data(nodes)
+                .join("g")
+                .attr("class", "node")
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended))
+                .on("click", (event, d) => selectAgent(d));
+
+            // Node circles
+            node.append("circle")
+                .attr("r", 30)
+                .attr("fill", d => d.color)
+                .attr("fill-opacity", 0.2)
+                .attr("stroke", d => d.color);
+
+            // Node icons
+            node.append("text")
+                .attr("dy", 5)
+                .attr("font-size", "20px")
+                .text(d => d.icon);
+
+            // Node labels
+            node.append("text")
+                .attr("dy", 45)
+                .attr("font-size", "10px")
+                .text(d => d.name);
+
+            // Update positions on tick
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                node.attr("transform", d => `translate(${d.x},${d.y})`);
+            });
+        }
+
+        // Drag handlers
+        function dragstarted(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+        }
+
+        function dragged(event) {
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
+        }
+
+        function dragended(event) {
+            if (!event.active) simulation.alphaTarget(0);
+            event.subject.fx = null;
+            event.subject.fy = null;
+        }
+
+        // Select agent
+        function selectAgent(agent) {
+            selectedAgent = agent;
+
+            // Update node styling
+            g.selectAll(".node").classed("selected", d => d.id === agent.id);
+
+            // Update details panel
+            document.getElementById("selected-agent-content").innerHTML = `
+                <div class="selected-agent">
+                    <div class="selected-agent-icon">${agent.icon}</div>
+                    <div class="selected-agent-info">
+                        <h3>${agent.name}</h3>
+                        <p>${agent.role}</p>
+                    </div>
+                </div>
+                <div class="capabilities">
+                    ${agent.capabilities.map(c => `<span class="capability">${c}</span>`).join("")}
+                </div>
+            `;
+        }
+
+        // Render messages
+        function renderMessages() {
+            const container = document.getElementById("message-stream");
+            container.innerHTML = messages.slice(0, 20).map(m => `
+                <div class="message-item">
+                    <div class="message-header">
+                        <div class="message-agents">
+                            <span class="sender">${m.sender}</span>
+                            <span class="arrow">→</span>
+                            <span class="recipient">${m.recipient === "*" ? "ALL" : m.recipient}</span>
+                        </div>
+                        <span class="message-time">${new Date(m.timestamp).toLocaleTimeString()}</span>
+                    </div>
+                    <div class="message-type">${m.message_type}</div>
+                    <div class="message-content">${JSON.stringify(m.content).slice(0, 100)}${JSON.stringify(m.content).length > 100 ? "..." : ""}</div>
+                </div>
+            `).join("");
+        }
+
+        // Animate message between agents
+        function animateMessage(msg) {
+            const sourceNode = g.selectAll(".node").filter(d => d.id === msg.sender);
+            const targetNodes = msg.recipient === "*"
+                ? g.selectAll(".node")
+                : g.selectAll(".node").filter(d => d.id === msg.recipient);
+
+            if (sourceNode.empty()) return;
+
+            const sourceData = sourceNode.datum();
+
+            targetNodes.each(function (targetData) {
+                if (targetData.id === msg.sender) return;
+
+                // Create particle
+                const particle = g.append("circle")
+                    .attr("class", "message-particle")
+                    .attr("r", 5)
+                    .attr("cx", sourceData.x)
+                    .attr("cy", sourceData.y);
+
+                // Animate to target
+                particle.transition()
+                    .duration(500)
+                    .attr("cx", targetData.x)
+                    .attr("cy", targetData.y)
+                    .remove();
+            });
+        }
+
+        // Actions
+        async function triggerDiscovery() {
+            try {
+                const res = await fetch("/api/features/scan", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ path: "/Users/yacinebenhamou/aSiReM" })
+                });
+                const data = await res.json();
+                alert(`Feature Discovery Complete!\n\nBackend: ${data.backend_count} features\nFrontend: ${data.frontend_count} features\nTotal: ${data.total_features} features`);
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+
+        async function broadcastMessage() {
+            const content = prompt("Enter message to broadcast to all agents:");
+            if (!content) return;
+
+            try {
+                await fetch("/api/agents/message", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        from: "dashboard",
+                        to: "*",
+                        type: "command",
+                        content: { message: content }
+                    })
+                });
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+
+        function resetGraph() {
+            if (simulation) {
+                simulation.alpha(1).restart();
+            }
+        }
+
+        // Initialize
+        // Initialize
+        loadInitialData();
+        connectWebSocket();
+    </script>
+
+    <!-- Sovereign Core Navigation System -->
+    <link rel="stylesheet" href="sovereign_core.css">
+    <script src="sovereign_core.js"></script>
+</body>
+
+</html>

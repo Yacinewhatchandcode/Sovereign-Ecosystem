@@ -1,0 +1,338 @@
+openapi: 3.0.3
+info:
+  title: aSiReM Multi-Agent System API
+  version: 1.0.0
+  description: "\n                Complete API for the aSiReM Autonomous Agent System.\n\
+    \                \n                Features:\n                - 32 autonomous\
+    \ agents\n                - 90 capabilities\n                - Real-time WebSocket\
+    \ streaming\n                - Semantic gap detection\n                - 500+\
+    \ technology support\n                "
+  contact:
+    name: aSiReM Team
+    url: https://asirem.dev
+servers:
+- url: http://localhost:8082
+  description: Local development server
+- url: https://api.asirem.dev
+  description: Production server
+tags:
+- name: Agents
+  description: Agent management and execution
+- name: Scanning
+  description: Semantic scanning and gap detection
+- name: Capabilities
+  description: System capabilities
+- name: System
+  description: Health and metrics
+paths:
+  /api/agents:
+    get:
+      summary: List all agents
+      description: Get list of all 32 autonomous agents with their status
+      tags:
+      - Agents
+      responses:
+        '200':
+          description: List of agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentList'
+  /api/agents/{agent_id}:
+    get:
+      summary: Get agent details
+      description: Get detailed information about a specific agent
+      tags:
+      - Agents
+      responses:
+        '200':
+          description: Agent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+  /api/agents/{agent_id}/execute:
+    post:
+      summary: Execute agent task
+      description: Execute a task with a specific agent
+      tags:
+      - Agents
+      responses:
+        '200':
+          description: Task execution result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskResult'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentTask'
+  /api/scan/start:
+    post:
+      summary: Start codebase scan
+      description: Initiate semantic scanning of target codebase
+      tags:
+      - Scanning
+      responses:
+        '202':
+          description: Scan started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanStatus'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanRequest'
+  /api/scan/{scan_id}/status:
+    get:
+      summary: Get scan status
+      description: Get current status of running scan
+      tags:
+      - Scanning
+      responses:
+        '200':
+          description: Scan status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanStatus'
+  /api/gaps:
+    get:
+      summary: Get detected gaps
+      description: Retrieve all detected gaps from semantic analysis
+      tags:
+      - Scanning
+      responses:
+        '200':
+          description: List of gaps
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GapList'
+  /api/capabilities:
+    get:
+      summary: List all capabilities
+      description: Get all 90 system capabilities
+      tags:
+      - Capabilities
+      responses:
+        '200':
+          description: Capabilities list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapabilityList'
+  /api/health:
+    get:
+      summary: Health check
+      description: System health status
+      tags:
+      - System
+      responses:
+        '200':
+          description: System healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+  /api/metrics:
+    get:
+      summary: System metrics
+      description: Real-time system metrics
+      tags:
+      - System
+      responses:
+        '200':
+          description: Metrics data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metrics'
+components:
+  schemas:
+    Agent:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - idle
+          - running
+          - error
+        capabilities:
+          type: array
+          items:
+            type: string
+        metrics:
+          $ref: '#/components/schemas/AgentMetrics'
+    AgentList:
+      type: object
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
+        total:
+          type: integer
+    AgentTask:
+      type: object
+      required:
+      - task_type
+      - parameters
+      properties:
+        task_type:
+          type: string
+        parameters:
+          type: object
+        priority:
+          type: string
+          enum:
+          - low
+          - medium
+          - high
+    Task Result:
+      type: object
+      properties:
+        task_id:
+          type: string
+        status:
+          type: string
+        result:
+          type: object
+        duration_ms:
+          type: integer
+    ScanRequest:
+      type: object
+      required:
+      - target_path
+      properties:
+        target_path:
+          type: string
+        scan_type:
+          type: string
+          enum:
+          - full
+          - incremental
+        include_patterns:
+          type: array
+          items:
+            type: string
+        exclude_patterns:
+          type: array
+          items:
+            type: string
+    ScanStatus:
+      type: object
+      properties:
+        scan_id:
+          type: string
+        status:
+          type: string
+          enum:
+          - running
+          - completed
+          - failed
+        progress:
+          type: number
+          minimum: 0
+          maximum: 100
+        files_scanned:
+          type: integer
+        gaps_found:
+          type: integer
+    Gap:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        severity:
+          type: string
+          enum:
+          - critical
+          - major
+          - minor
+          - info
+        description:
+          type: string
+        path:
+          type: string
+        sample:
+          type: string
+    GapList:
+      type: object
+      properties:
+        gaps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gap'
+        total:
+          type: integer
+        by_severity:
+          type: object
+    CapabilityList:
+      type: object
+      properties:
+        capabilities:
+          type: array
+          items:
+            type: string
+        total:
+          type: integer
+        coverage:
+          type: number
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - healthy
+          - degraded
+          - down
+        agents_running:
+          type: integer
+        uptime_seconds:
+          type: integer
+    Metrics:
+      type: object
+      properties:
+        requests_total:
+          type: integer
+        requests_per_second:
+          type: number
+        active_scans:
+          type: integer
+        memory_usage_mb:
+          type: number
+        cpu_usage_percent:
+          type: number
+    AgentMetrics:
+      type: object
+      properties:
+        tasks_completed:
+          type: integer
+        tasks_failed:
+          type: integer
+        avg_duration_ms:
+          type: number
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key

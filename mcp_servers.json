@@ -1,0 +1,127 @@
+{
+    "mcpServers": {
+        "github": {
+            "name": "GitHub MCP Server",
+            "description": "GitHub operations - search code, manage repos, issues, PRs",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "enabled": true,
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+            }
+        },
+        "supabase": {
+            "name": "Supabase MCP Server",
+            "description": "Supabase database operations - SQL, migrations, tables",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-supabase"
+            ],
+            "enabled": true,
+            "env": {
+                "SUPABASE_ACCESS_TOKEN": "",
+                "SUPABASE_PROJECT_ID": ""
+            }
+        },
+        "perplexity": {
+            "name": "Perplexity MCP Server",
+            "description": "Web search and research via Perplexity AI",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-perplexity"
+            ],
+            "enabled": true,
+            "env": {
+                "PERPLEXITY_API_KEY": "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"
+            }
+        },
+        "filesystem": {
+            "name": "Filesystem MCP Server",
+            "description": "Local filesystem operations - read, write, search files",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "/Users/yacinebenhamou/aSiReM"
+            ],
+            "enabled": true,
+            "env": {}
+        },
+        "postgres": {
+            "name": "PostgreSQL MCP Server",
+            "description": "PostgreSQL database operations",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-postgres"
+            ],
+            "enabled": true,
+            "env": {
+                "POSTGRES_CONNECTION_STRING": "postgresql://localhost/azirem"
+            }
+        },
+        "brave-search": {
+            "name": "Brave Search MCP Server",
+            "description": "Web search via Brave Search API",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-brave-search"
+            ],
+            "enabled": true,
+            "env": {
+                "BRAVE_API_KEY": ""
+            }
+        },
+        "memory": {
+            "name": "Memory MCP Server",
+            "description": "Persistent memory and knowledge graph",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "enabled": true,
+            "env": {}
+        },
+        "puppeteer": {
+            "name": "Puppeteer MCP Server",
+            "description": "Browser automation and web scraping",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-puppeteer"
+            ],
+            "enabled": true,
+            "env": {}
+        },
+        "slack": {
+            "name": "Slack MCP Server",
+            "description": "Slack workspace operations",
+            "transport": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-slack"
+            ],
+            "enabled": true,
+            "env": {
+                "SLACK_BOT_TOKEN": "",
+                "SLACK_TEAM_ID": ""
+            }
+        }
+    }
+}

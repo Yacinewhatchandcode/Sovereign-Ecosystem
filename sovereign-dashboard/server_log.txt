@@ -1,0 +1,41 @@
+📸 Loaded 15 aSiReM character images
+🔊 ASiREMSpeakingEngine initialized
+💎 Veo3 Generator: Production mode ACTIVATED with Google API Key
+💎 Veo3Generator initialized (simulated=False)
+📹 AgentVisualEngine initialized
+🎬 RealTimeVisualCapture initialized - OpenAI Operator mode available
+🤖 VisualOperatorMode initialized - TRUE screen control available!
+🐳 IntegratedVisualOperator initialized - ByteBot + DeepSeek + DeepSearch!
+🎬 PerAgentStreamGenerator initialized - Each agent gets unique streams!
+💎 Veo3 Generator: Production mode ACTIVATED with Google API Key
+💎 RealAgentStreamingServer: Veo3 ready (simulated=False)
+
+🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬
+   REAL MULTI-AGENT SYSTEM
+   Live Scanning & Web Search
+🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬🧬
+
+🌐 Dashboard: http://localhost:8082/
+📡 WebSocket: ws://localhost:8082/ws/stream
+
+⚡ This is the REAL system - agents will actually scan your files!
+
+Press Ctrl+C to stop
+
+💓 Heartbeat task started
+📹 Registered visual stream for AZIREM (azirem)
+📹 Registered visual stream for BumbleBee (bumblebee)
+📹 Registered visual stream for Spectra (spectra)
+📹 Registered visual stream for Scanner (scanner)
+📹 Registered visual stream for Classifier (classifier)
+📹 Registered visual stream for Extractor (extractor)
+📹 Registered visual stream for Summarizer (summarizer)
+📹 Registered visual stream for Evolution (evolution)
+📹 Registered visual stream for Researcher (researcher)
+📹 Registered visual stream for Architect (architect)
+📹 Registered visual stream for DevOps (devops)
+📹 Registered visual stream for QA (qa)
+📹 Registered visual stream for Security (security)
+📹 All agent visual streams initialized
+🎬 [PRODUCTION] Calling Veo3.1 API (models/veo-3.1-fast-generate-preview): A beautiful sunset over mountains with golden ligh...
+❌ Veo3 Production Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. ', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}]}}

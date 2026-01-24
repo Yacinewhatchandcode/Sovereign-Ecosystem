@@ -1,0 +1,22 @@
+{
+  "agent_id": "scanner",
+  "agent_name": "Scanner",
+  "timestamp": "2026-01-20T18:33:30.639190",
+  "frame_type": "repository_detection",
+  "content": {
+    "action": "detected_repository",
+    "repo_path": "/Users/yacinebenhamou/aSiReM",
+    "repo_name": "aSiReM",
+    "file_count": 1523,
+    "languages": [
+      "Python",
+      "JavaScript",
+      "TypeScript"
+    ],
+    "visual": {
+      "icon": "\ud83d\udcc1",
+      "color": "#00ff88",
+      "message": "Detected repository: aSiReM (1523 files)"
+    }
+  }
+}

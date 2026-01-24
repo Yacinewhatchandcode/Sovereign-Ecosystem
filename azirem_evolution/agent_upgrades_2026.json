@@ -1,0 +1,142 @@
+{
+  "AZIREM": {
+    "name": "EvolvedAZIREM",
+    "base": "AZIREM",
+    "version": "2026.1",
+    "upgraded_at": "2026-01-18T14:19:44.084648",
+    "capabilities": [
+      "mcp_integration",
+      "handoff_delegation",
+      "self_improvement",
+      "multi_modal",
+      "tool_learning"
+    ],
+    "patterns": [
+      "openai_agents_sdk",
+      "anthropic_mcp",
+      "deepseek_self_improvement",
+      "langgraph_crewai_hybrid"
+    ],
+    "evolution_enabled": true
+  },
+  "BumbleBee": {
+    "name": "EvolvedBumbleBee",
+    "base": "BumbleBee",
+    "version": "2026.1",
+    "upgraded_at": "2026-01-18T14:19:44.084666",
+    "capabilities": [
+      "mcp_integration",
+      "handoff_delegation",
+      "self_improvement",
+      "multi_modal",
+      "tool_learning"
+    ],
+    "patterns": [
+      "openai_agents_sdk",
+      "anthropic_mcp",
+      "deepseek_self_improvement",
+      "langgraph_crewai_hybrid"
+    ],
+    "evolution_enabled": true
+  },
+  "Spectra": {
+    "name": "EvolvedSpectra",
+    "base": "Spectra",
+    "version": "2026.1",
+    "upgraded_at": "2026-01-18T14:19:44.084670",
+    "capabilities": [
+      "mcp_integration",
+      "handoff_delegation",
+      "self_improvement",
+      "multi_modal",
+      "tool_learning"
+    ],
+    "patterns": [
+      "openai_agents_sdk",
+      "anthropic_mcp",
+      "deepseek_self_improvement",
+      "langgraph_crewai_hybrid"
+    ],
+    "evolution_enabled": true
+  },
+  "Scanner": {
+    "name": "EvolvedScanner",
+    "base": "Scanner",
+    "version": "2026.1",
+    "upgraded_at": "2026-01-18T14:19:44.084672",
+    "capabilities": [
+      "mcp_integration",
+      "handoff_delegation",
+      "self_improvement",
+      "multi_modal",
+      "tool_learning"
+    ],
+    "patterns": [
+      "openai_agents_sdk",
+      "anthropic_mcp",
+      "deepseek_self_improvement",
+      "langgraph_crewai_hybrid"
+    ],
+    "evolution_enabled": true
+  },
+  "Classifier": {
+    "name": "EvolvedClassifier",
+    "base": "Classifier",
+    "version": "2026.1",
+    "upgraded_at": "2026-01-18T14:19:44.084678",
+    "capabilities": [
+      "mcp_integration",
+      "handoff_delegation",
+      "self_improvement",
+      "multi_modal",
+      "tool_learning"
+    ],
+    "patterns": [
+      "openai_agents_sdk",
+      "anthropic_mcp",
+      "deepseek_self_improvement",
+      "langgraph_crewai_hybrid"
+    ],
+    "evolution_enabled": true
+  },
+  "Researcher": {
+    "name": "EvolvedResearcher",
+    "base": "Researcher",
+    "version": "2026.1",
+    "upgraded_at": "2026-01-18T14:19:44.084680",
+    "capabilities": [
+      "mcp_integration",
+      "handoff_delegation",
+      "self_improvement",
+      "multi_modal",
+      "tool_learning"
+    ],
+    "patterns": [
+      "openai_agents_sdk",
+      "anthropic_mcp",
+      "deepseek_self_improvement",
+      "langgraph_crewai_hybrid"
+    ],
+    "evolution_enabled": true
+  },
+  "Coder": {
+    "name": "EvolvedCoder",
+    "base": "Coder",
+    "version": "2026.1",
+    "upgraded_at": "2026-01-18T14:19:44.084682",
+    "capabilities": [
+      "mcp_integration",
+      "handoff_delegation",
+      "self_improvement",
+      "multi_modal",
+      "tool_learning"
+    ],
+    "patterns": [
+      "openai_agents_sdk",
+      "anthropic_mcp",
+      "deepseek_self_improvement",
+      "langgraph_crewai_hybrid"
+    ],
+    "evolution_enabled": true
+  }
+}

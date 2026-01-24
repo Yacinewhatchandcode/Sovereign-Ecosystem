@@ -1,0 +1,10 @@
+{
+  "agent_id": "classifier",
+  "agent_name": "Classifier",
+  "status": "idle",
+  "message": "Classifier is ready and waiting for tasks",
+  "visual": {
+    "icon": "\ud83d\udca4",
+    "color": "#888888"
+  }
+}

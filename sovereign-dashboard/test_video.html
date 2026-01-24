@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Video Stream Test</title>
+    <style>
+        body {
+            background: #000;
+            color: #0ff;
+            font-family: monospace;
+            padding: 20px;
+        }
+
+        .test-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .agent-test {
+            border: 2px solid #0ff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .agent-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #222;
+            position: relative;
+            margin: 10px auto;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h3 {
+            text-align: center;
+            margin: 0;
+        }
+
+        .status {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🎬 Agent Video Stream Test</h1>
+    <p>Testing individual agent streams...</p>
+
+    <div class="test-container" id="container"></div>
+
+    <script>
+        const agents = [
+            'azirem', 'bumblebee', 'spectra', 'scanner', 'classifier',
+            'extractor', 'summarizer', 'evolution', 'researcher',
+            'architect', 'devops', 'qa', 'security'
+        ];
+
+        const container = document.getElementById('container');
+
+        agents.forEach(agentId => {
+            const div = document.createElement('div');
+            div.className = 'agent-test';
+            div.innerHTML = `
+                <h3>${agentId.toUpperCase()}</h3>
+                <div class="agent-avatar">
+                    <video 
+                        id="video-${agentId}"
+                        src="/outputs/agent_streams/${agentId}/idle_stream.mp4"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                    ></video>
+                </div>
+                <div class="status" id="status-${agentId}">Loading...</div>
+            `;
+            container.appendChild(div);
+
+            // Test video loading
+            const video = document.getElementById(`video-${agentId}`);
+            const status = document.getElementById(`status-${agentId}`);
+
+            video.addEventListener('loadeddata', () => {
+                status.textContent = '✅ Loaded';
+                status.style.color = '#0f0';
+            });
+
+            video.addEventListener('error', (e) => {
+                status.textContent = `❌ Error: ${video.error.code}`;
+                status.style.color = '#f00';
+            });
+
+            video.addEventListener('playing', () => {
+                status.textContent = '▶️ Playing';
+                status.style.color = '#0ff';
+            });
+        });
+    </script>
+</body>
+
+</html>

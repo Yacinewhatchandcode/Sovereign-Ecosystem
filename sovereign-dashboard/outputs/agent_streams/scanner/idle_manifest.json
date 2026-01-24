@@ -1,0 +1,10 @@
+{
+  "agent_id": "scanner",
+  "agent_name": "Scanner",
+  "status": "idle",
+  "message": "Scanner is ready and waiting for tasks",
+  "visual": {
+    "icon": "\ud83d\udca4",
+    "color": "#888888"
+  }
+}

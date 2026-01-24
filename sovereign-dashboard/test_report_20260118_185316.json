@@ -1,0 +1,96 @@
+{
+  "timestamp": "2026-01-18T18:53:16.652327",
+  "summary": {
+    "total": 17,
+    "passed": 16,
+    "failed": 1,
+    "pass_rate": 94.11764705882352
+  },
+  "results": [
+    {
+      "test": "Server Running on Port 8082",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Dashboard Files Exist",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Documentation Complete",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Database Schema Created",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Voice & Video Assets",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Character Assets Loaded",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Story Bible Available",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Generated Outputs Exist",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "XTTS Installation",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "XTTS Model Available",
+      "status": "FAIL",
+      "details": "Test returned False"
+    },
+    {
+      "test": "MuseTalk Installed",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Voice Cloning Ready",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Visual Streaming Ready",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Python Imports Working",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "WebSocket Dependencies",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Web Search Capability",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "test": "Filesystem Scanner Paths",
+      "status": "PASS",
+      "details": true
+    }
+  ]
+}

@@ -1,0 +1,364 @@
+{
+    "audit_timestamp": "2026-01-21T22:52:32.033538",
+    "total_steps": 52,
+    "results": [
+        {
+            "step": 1,
+            "target": "AZIREM",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_1_AZIREM.png"
+        },
+        {
+            "step": 2,
+            "target": "Scanner",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_2_Scanner.png"
+        },
+        {
+            "step": 3,
+            "target": "Classifier",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_3_Classifier.png"
+        },
+        {
+            "step": 4,
+            "target": "Extractor",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_4_Extractor.png"
+        },
+        {
+            "step": 5,
+            "target": "Summarizer",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_5_Summarizer.png"
+        },
+        {
+            "step": 6,
+            "target": "Evolution",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_6_Evolution.png"
+        },
+        {
+            "step": 7,
+            "target": "Researcher",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_7_Researcher.png"
+        },
+        {
+            "step": 8,
+            "target": "Architect",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_8_Architect.png"
+        },
+        {
+            "step": 9,
+            "target": "Memory",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_9_Memory.png"
+        },
+        {
+            "step": 10,
+            "target": "Embedding",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_10_Embedding.png"
+        },
+        {
+            "step": 11,
+            "target": "DocGen",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_11_DocGen.png"
+        },
+        {
+            "step": 12,
+            "target": "MCP",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_12_MCP.png"
+        },
+        {
+            "step": 13,
+            "target": "Veo3",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_13_Veo3.png"
+        },
+        {
+            "step": 14,
+            "target": "Run Evolution",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_14_Run_Evolution.png"
+        },
+        {
+            "step": 15,
+            "target": "Auto-Evolve: OFF",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_15_Auto-Evolve:_OFF.png"
+        },
+        {
+            "step": 16,
+            "target": "Web Search",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_16_Web_Search.png"
+        },
+        {
+            "step": 17,
+            "target": "Mesh Audit",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_17_Mesh_Audit.png"
+        },
+        {
+            "step": 18,
+            "target": "API Workbench",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_18_API_Workbench.png"
+        },
+        {
+            "step": 19,
+            "target": "aSiReM Speak",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_19_aSiReM_Speak.png"
+        },
+        {
+            "step": 20,
+            "target": "Veo3 Generate",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_20_Veo3_Generate.png"
+        },
+        {
+            "step": 21,
+            "target": "Cinematic Narrative",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_21_Cinematic_Narrative.png"
+        },
+        {
+            "step": 22,
+            "target": "Veo3 Credits",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_22_Veo3_Credits.png"
+        },
+        {
+            "step": 23,
+            "target": "Integrated Scan",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_23_Integrated_Scan.png"
+        },
+        {
+            "step": 24,
+            "target": "AZIREM Podcast",
+            "type": "agent",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_24_AZIREM_Podcast.png"
+        },
+        {
+            "step": 25,
+            "target": "\ud83d\udc51 AZIREM",
+            "type": "actuator",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_25_\ud83d\udc51_AZIREM.png"
+        },
+        {
+            "step": 26,
+            "target": "\ud83d\udc1d BUMBLEBEE",
+            "type": "actuator",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_26_\ud83d\udc1d_BUMBLEBEE.png"
+        },
+        {
+            "step": 27,
+            "target": "\ud83d\udce1 SCANNER",
+            "type": "actuator",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_27_\ud83d\udce1_SCANNER.png"
+        },
+        {
+            "step": 28,
+            "target": "\ud83c\udf08 SPECTRA",
+            "type": "actuator",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_28_\ud83c\udf08_SPECTRA.png"
+        },
+        {
+            "step": 29,
+            "target": "AZIREM",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_29_AZIREM.png"
+        },
+        {
+            "step": 30,
+            "target": "Scanner",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_30_Scanner.png"
+        },
+        {
+            "step": 31,
+            "target": "Classifier",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_31_Classifier.png"
+        },
+        {
+            "step": 32,
+            "target": "Extractor",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_32_Extractor.png"
+        },
+        {
+            "step": 33,
+            "target": "Summarizer",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_33_Summarizer.png"
+        },
+        {
+            "step": 34,
+            "target": "Evolution",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_34_Evolution.png"
+        },
+        {
+            "step": 35,
+            "target": "Researcher",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_35_Researcher.png"
+        },
+        {
+            "step": 36,
+            "target": "Architect",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_36_Architect.png"
+        },
+        {
+            "step": 37,
+            "target": "Memory",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_37_Memory.png"
+        },
+        {
+            "step": 38,
+            "target": "Embedding",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_38_Embedding.png"
+        },
+        {
+            "step": 39,
+            "target": "DocGen",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_39_DocGen.png"
+        },
+        {
+            "step": 40,
+            "target": "MCP",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_40_MCP.png"
+        },
+        {
+            "step": 41,
+            "target": "Veo3",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_41_Veo3.png"
+        },
+        {
+            "step": 42,
+            "target": "Run Evolution",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_42_Run_Evolution.png"
+        },
+        {
+            "step": 44,
+            "target": "Web Search",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_44_Web_Search.png"
+        },
+        {
+            "step": 45,
+            "target": "Mesh Audit",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_45_Mesh_Audit.png"
+        },
+        {
+            "step": 46,
+            "target": "API Workbench",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_46_API_Workbench.png"
+        },
+        {
+            "step": 47,
+            "target": "aSiReM Speak",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_47_aSiReM_Speak.png"
+        },
+        {
+            "step": 48,
+            "target": "Veo3 Generate",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_48_Veo3_Generate.png"
+        },
+        {
+            "step": 49,
+            "target": "Cinematic Narrative",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_49_Cinematic_Narrative.png"
+        },
+        {
+            "step": 50,
+            "target": "Veo3 Credits",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_50_Veo3_Credits.png"
+        },
+        {
+            "step": 51,
+            "target": "Integrated Scan",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_51_Integrated_Scan.png"
+        },
+        {
+            "step": 52,
+            "target": "AZIREM Podcast",
+            "type": "quick_action",
+            "status": "success",
+            "screenshot": "outputs/audit_results/step_52_AZIREM_Podcast.png"
+        }
+    ],
+    "video_artifact": "/Users/yacinebenhamou/aSiReM/sovereign-dashboard/outputs/audit_results/videos/8539dda0c7159e74f3c1015ca100afdb.webm"
+}

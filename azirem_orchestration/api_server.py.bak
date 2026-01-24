@@ -1,0 +1,454 @@
+#!/usr/bin/env python3
+"""
+AZIREM REST API
+===============
+Simple REST API for the AZIREM ecosystem.
+Endpoints: /search, /file/{id}, /api/{id}/openapi, /agents/status
+
+Uses Flask for simplicity (can be swapped for FastAPI).
+"""
+
+import json
+import os
+import re
+from pathlib import Path
+from datetime import datetime
+from typing import Dict, List, Optional, Any
+from functools import wraps
+
+try:
+    from flask import Flask, jsonify, request, send_from_directory
+    from flask_cors import CORS
+except ImportError:
+    print("Installing Flask dependencies...")
+    import subprocess
+    subprocess.run(["pip3", "install", "flask", "flask-cors", "-q"])
+    from flask import Flask, jsonify, request, send_from_directory
+    from flask_cors import CORS
+
+# ============================================================================
+# APP SETUP
+# ============================================================================
+
+app = Flask(__name__, static_folder='../web-ui')
+CORS(app)
+
+# Configuration
+AZIREM_ROOT = Path("/Users/yacinebenhamou/aSiReM")
+REGISTRY_PATH = Path("/tmp/azirem_full_system/registry.json")
+DISCOVERY_PATH = AZIREM_ROOT / "azirem_discovery" / "inventory_frozen.json"
+AGENTS_REGISTRY = AZIREM_ROOT / "azirem_registry" / "agents_frozen.json"
+
+
+# ============================================================================
+# DATA LOADING
+# ============================================================================
+
+def load_registry() -> Dict:
+    """Load the pipeline registry."""
+    if REGISTRY_PATH.exists():
+        with open(REGISTRY_PATH) as f:
+            return json.load(f)
+    return {"files": [], "projects": [], "summary": {}}
+
+
+def load_discovery() -> Dict:
+    """Load the discovery inventory."""
+    if DISCOVERY_PATH.exists():
+        with open(DISCOVERY_PATH) as f:
+            return json.load(f)
+    return {"total_files": 0, "agents": []}
+
+
+def load_agents() -> Dict:
+    """Load the agents registry."""
+    if AGENTS_REGISTRY.exists():
+        with open(AGENTS_REGISTRY) as f:
+            return json.load(f)
+    return {"agents": [], "total_agents": 0}
+
+
+# ============================================================================
+# API ROUTES
+# ============================================================================
+
+@app.route('/')
+def index():
+    """Serve the Matrix UI."""
+    return send_from_directory(app.static_folder, 'index.html')
+
+
+@app.route('/api/status')
+def api_status():
+    """Get overall system status."""
+    registry = load_registry()
+    discovery = load_discovery()
+    agents = load_agents()
+    
+    return jsonify({
+        "status": "online",
+        "timestamp": datetime.now().isoformat(),
+        "discovery": {
+            "total_files": discovery.get("total_files", 0),
+            "scan_timestamp": discovery.get("scan_timestamp"),
+        },
+        "registry": {
+            "total_files": registry.get("summary", {}).get("total_files", 0),
+            "total_projects": registry.get("summary", {}).get("total_projects", 0),
+        },
+        "agents": {
+            "total": agents.get("total_agents", 0),
+            "tiers": agents.get("tiers", {}),
+        }
+    })
+
+
+@app.route('/api/search')
+def api_search():
+    """
+    Search files in the registry.
+    Query params:
+    - q: Search query (matches path, tags)
+    - tag: Filter by tag
+    - extension: Filter by extension
+    - limit: Max results (default 50)
+    - offset: Pagination offset
+    """
+    registry = load_registry()
+    files = registry.get("files", [])
+    
+    # Get query params
+    query = request.args.get('q', '').lower()
+    tag_filter = request.args.get('tag')
+    ext_filter = request.args.get('extension')
+    limit = min(int(request.args.get('limit', 50)), 200)
+    offset = int(request.args.get('offset', 0))
+    
+    # Filter
+    results = []
+    for f in files:
+        # Query match (path or filename)
+        if query and query not in f.get("path", "").lower():
+            continue
+        
+        # Tag filter
+        if tag_filter and tag_filter not in f.get("tags", []):
+            continue
+        
+        # Extension filter
+        if ext_filter and f.get("extension") != ext_filter:
+            continue
+        
+        results.append(f)
+    
+    # Paginate
+    total = len(results)
+    results = results[offset:offset + limit]
+    
+    return jsonify({
+        "query": query,
+        "filters": {"tag": tag_filter, "extension": ext_filter},
+        "total": total,
+        "offset": offset,
+        "limit": limit,
+        "results": results,
+    })
+
+
+@app.route('/api/file/<path:file_path>')
+def api_file(file_path: str):
+    """
+    Get details for a specific file.
+    Returns metadata, extracted info, and snippet.
+    """
+    registry = load_registry()
+    files = registry.get("files", [])
+    
+    # Find file
+    for f in files:
+        if f.get("path") == f"/{file_path}" or f.get("path").endswith(file_path):
+            return jsonify({
+                "found": True,
+                "file": f,
+            })
+    
+    return jsonify({"found": False, "error": "File not found"}), 404
+
+
+@app.route('/api/file/<path:file_path>/content')
+def api_file_content(file_path: str):
+    """
+    Get file content (first 5000 chars only for safety).
+    """
+    full_path = Path("/") / file_path
+    if not full_path.exists():
+        return jsonify({"error": "File not found"}), 404
+    
+    try:
+        content = full_path.read_text(errors='ignore')[:5000]
+        return jsonify({
+            "path": str(full_path),
+            "content": content,
+            "truncated": len(content) >= 5000,
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/tags')
+def api_tags():
+    """Get all tags with counts."""
+    registry = load_registry()
+    return jsonify({
+        "tags": registry.get("by_tag", {}),
+    })
+
+
+@app.route('/api/projects')
+def api_projects():
+    """Get all discovered projects with dependencies."""
+    registry = load_registry()
+    return jsonify({
+        "total": len(registry.get("projects", [])),
+        "projects": registry.get("projects", []),
+    })
+
+
+@app.route('/api/secrets/summary')
+def api_secrets_summary():
+    """
+    Get secrets summary (NOT actual secrets!).
+    Returns only counts and file paths.
+    """
+    registry = load_registry()
+    return jsonify({
+        "summary": registry.get("secrets_summary", {}),
+        "note": "Actual secret values are NEVER stored or transmitted.",
+    })
+
+
+@app.route('/api/agents')
+def api_agents():
+    """Get all registered agents."""
+    agents = load_agents()
+    return jsonify(agents)
+
+
+@app.route('/api/agents/status')
+def api_agents_status():
+    """Get agent status (placeholder for live status)."""
+    agents = load_agents()
+    
+    status = []
+    for agent in agents.get("agents", []):
+        status.append({
+            "id": agent.get("id"),
+            "name": agent.get("name"),
+            "tier": agent.get("tier"),
+            "model": agent.get("model"),
+            "status": "ready",  # Would be live in production
+            "last_run": None,
+        })
+    
+    return jsonify({
+        "total": len(status),
+        "agents": status,
+    })
+
+
+@app.route('/api/openapi')
+def api_openapi_list():
+    """List all discovered OpenAPI/Swagger specs."""
+    registry = load_registry()
+    files = registry.get("files", [])
+    
+    # Find files that might contain OpenAPI
+    openapi_files = []
+    for f in files:
+        path = f.get("path", "")
+        name = Path(path).name.lower()
+        if "openapi" in name or "swagger" in name or name.endswith(".yaml"):
+            openapi_files.append({
+                "path": path,
+                "name": Path(path).name,
+                "tags": f.get("tags", []),
+            })
+    
+    return jsonify({
+        "total": len(openapi_files),
+        "specs": openapi_files,
+    })
+
+
+@app.route('/api/matrix')
+def api_matrix():
+    """
+    Get matrix data for the UI.
+    Returns structured data for the matrix view.
+    """
+    registry = load_registry()
+    files = registry.get("files", [])
+    
+    # Group by directory
+    by_dir = {}
+    for f in files:
+        path = Path(f.get("path", ""))
+        parent = str(path.parent)
+        
+        if parent not in by_dir:
+            by_dir[parent] = {
+                "path": parent,
+                "files": [],
+                "tags": set(),
+                "total_size": 0,
+            }
+        
+        by_dir[parent]["files"].append(f)
+        by_dir[parent]["tags"].update(f.get("tags", []))
+        by_dir[parent]["total_size"] += f.get("size", 0)
+    
+    # Convert to list
+    directories = []
+    for path, data in by_dir.items():
+        directories.append({
+            "path": path,
+            "file_count": len(data["files"]),
+            "tags": list(data["tags"]),
+            "total_size": data["total_size"],
+        })
+    
+    # Sort by file count
+    directories.sort(key=lambda x: -x["file_count"])
+    
+    return jsonify({
+        "total_directories": len(directories),
+        "total_files": len(files),
+        "directories": directories[:100],  # Top 100
+        "by_tag": registry.get("by_tag", {}),
+    })
+
+
+@app.route('/api/knowledge')
+def api_knowledge():
+    """Get knowledge graph data."""
+    kg_path = Path("/tmp/azirem_knowledge_graph.json")
+    if not kg_path.exists():
+        return jsonify({"error": "Knowledge graph not built yet"}), 404
+    
+    with open(kg_path) as f:
+        kg = json.load(f)
+    
+    return jsonify(kg)
+
+
+@app.route('/api/knowledge/search')
+def api_knowledge_search():
+    """Search knowledge graph."""
+    import re
+    from collections import defaultdict
+    
+    query = request.args.get('q', '').lower()
+    limit = int(request.args.get('limit', 20))
+    
+    if not query:
+        return jsonify({"error": "Query required"}), 400
+    
+    # Load MD inventory
+    md_path = Path("/tmp/azirem_md_inventory.json")
+    if not md_path.exists():
+        return jsonify({"error": "Inventory not found"}), 404
+    
+    with open(md_path) as f:
+        md_inv = json.load(f)
+    
+    # Simple keyword search
+    query_words = [w for w in re.findall(r'\w+', query) if len(w) > 2]
+    results = []
+    
+    for doc in md_inv.get("files", []):
+        path_lower = doc.get("path", "").lower()
+        name_lower = doc.get("name", "").lower()
+        
+        score = sum(1 for w in query_words if w in path_lower or w in name_lower)
+        if score > 0:
+            results.append({
+                **doc,
+                "relevance": score / len(query_words)
+            })
+    
+    # Sort by relevance
+    results.sort(key=lambda x: -x["relevance"])
+    
+    return jsonify({
+        "query": query,
+        "total": len(results),
+        "results": results[:limit],
+    })
+
+
+@app.route('/api/export/csv')
+def api_export_csv():
+    """Export registry as CSV."""
+    registry = load_registry()
+    files = registry.get("files", [])
+    
+    lines = ["path,size,extension,tags,summary"]
+    for f in files:
+        tags = "|".join(f.get("tags", []))
+        summary = f.get("summary", "").replace('"', "'")[:100]
+        lines.append(f'"{f.get("path")}",{f.get("size")},"{f.get("extension")}","{tags}","{summary}"')
+    
+    csv_content = "\n".join(lines)
+    
+    return csv_content, 200, {
+        'Content-Type': 'text/csv',
+        'Content-Disposition': 'attachment; filename=azirem_registry.csv'
+    }
+
+
+@app.route('/api/export/json')
+def api_export_json():
+    """Export full registry as JSON."""
+    registry = load_registry()
+    return jsonify(registry)
+
+
+# ============================================================================
+# MAIN
+# ============================================================================
+
+def main():
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="AZIREM REST API")
+    parser.add_argument("--port", "-p", type=int, default=8080, help="Port")
+    parser.add_argument("--host", "-H", default="0.0.0.0", help="Host")
+    parser.add_argument("--debug", "-d", action="store_true", help="Debug mode")
+    
+    args = parser.parse_args()
+    
+    print("=" * 60)
+    print("🌌 AZIREM REST API")
+    print("=" * 60)
+    print(f"Host: {args.host}:{args.port}")
+    print(f"Registry: {REGISTRY_PATH}")
+    print(f"Discovery: {DISCOVERY_PATH}")
+    print()
+    print("Endpoints:")
+    print("  GET /api/status         - System status")
+    print("  GET /api/search?q=...   - Search files")
+    print("  GET /api/file/<path>    - File details")
+    print("  GET /api/tags           - All tags")
+    print("  GET /api/projects       - Projects with deps")
+    print("  GET /api/agents         - Registered agents")
+    print("  GET /api/agents/status  - Agent status")
+    print("  GET /api/matrix         - Matrix view data")
+    print("  GET /api/export/csv     - Export as CSV")
+    print("  GET /api/export/json    - Export as JSON")
+    print()
+    
+    app.run(host=args.host, port=args.port, debug=args.debug)
+
+
+if __name__ == "__main__":
+    main()

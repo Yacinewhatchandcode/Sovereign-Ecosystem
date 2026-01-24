@@ -1,0 +1,665 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "aSiReM Sovereign Command Center API",
+        "description": "Real-time multi-agent orchestration system with 106+ agents, WebSocket streaming, and multimodal capabilities (Veo3, XTTS, ByteBot)",
+        "version": "2.0.0",
+        "contact": {
+            "name": "aSiReM Multi-Agent System",
+            "url": "http://localhost:8082"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8082",
+            "description": "Local Development Server"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Core",
+            "description": "Core system endpoints"
+        },
+        {
+            "name": "Evolution",
+            "description": "Agent discovery and evolution pipeline"
+        },
+        {
+            "name": "Multimodal",
+            "description": "Voice, video and narrative generation"
+        },
+        {
+            "name": "Agents",
+            "description": "Agent communication and registry"
+        },
+        {
+            "name": "Features",
+            "description": "Feature scanning and discovery"
+        },
+        {
+            "name": "Extended",
+            "description": "Memory, embeddings, documentation, MCP integration"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Core"
+                ],
+                "summary": "Dashboard Homepage",
+                "description": "Serves the Sovereign Command Center UI",
+                "responses": {
+                    "200": {
+                        "description": "HTML dashboard"
+                    }
+                }
+            }
+        },
+        "/api/status": {
+            "get": {
+                "tags": [
+                    "Core"
+                ],
+                "summary": "System Status",
+                "description": "Returns current system health and active agents",
+                "responses": {
+                    "200": {
+                        "description": "System status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "operational"
+                                        },
+                                        "agents_active": {
+                                            "type": "integer"
+                                        },
+                                        "uptime": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ws/stream": {
+            "get": {
+                "tags": [
+                    "Core"
+                ],
+                "summary": "WebSocket Event Stream",
+                "description": "Real-time bidirectional event stream for agent telemetry and commands",
+                "responses": {
+                    "101": {
+                        "description": "WebSocket upgrade successful"
+                    }
+                }
+            }
+        },
+        "/api/run-pipeline": {
+            "post": {
+                "tags": [
+                    "Evolution"
+                ],
+                "summary": "Run Evolution Pipeline",
+                "description": "Triggers full multi-agent scanning, classification, and evolution cycle",
+                "responses": {
+                    "200": {
+                        "description": "Pipeline started"
+                    }
+                }
+            }
+        },
+        "/api/web-search": {
+            "post": {
+                "tags": [
+                    "Evolution"
+                ],
+                "summary": "Web Search",
+                "description": "Search for cutting-edge AI agent patterns",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "query": {
+                                        "type": "string",
+                                        "example": "LangGraph multi-agent patterns"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Search results"
+                    }
+                }
+            }
+        },
+        "/api/discoveries": {
+            "get": {
+                "tags": [
+                    "Evolution"
+                ],
+                "summary": "Get Discovered Files",
+                "description": "Returns all files discovered by scanner agents with patterns",
+                "responses": {
+                    "200": {
+                        "description": "List of discoveries",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "discoveries": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "path": {
+                                                        "type": "string"
+                                                    },
+                                                    "patterns": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "score": {
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/patterns": {
+            "get": {
+                "tags": [
+                    "Evolution"
+                ],
+                "summary": "Get Pattern Statistics",
+                "description": "Returns aggregated pattern counts from scanning",
+                "responses": {
+                    "200": {
+                        "description": "Pattern distribution"
+                    }
+                }
+            }
+        },
+        "/api/podcast/ask": {
+            "post": {
+                "tags": [
+                    "Multimodal"
+                ],
+                "summary": "aSiReM Podcast Question",
+                "description": "Ask aSiReM a question via podcast interface with voice synthesis",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "question": {
+                                        "type": "string"
+                                    },
+                                    "use_voice": {
+                                        "type": "boolean",
+                                        "default": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Podcast response with optional audio",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "response": {
+                                            "type": "string"
+                                        },
+                                        "audio_path": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/podcast/video": {
+            "post": {
+                "tags": [
+                    "Multimodal"
+                ],
+                "summary": "Generate Cinematic Narrative",
+                "description": "Generate dual-avatar podcast video with voice and visuals",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "topic": {
+                                        "type": "string",
+                                        "example": "The Future of AI Agents"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Video generation started"
+                    }
+                }
+            }
+        },
+        "/api/veo3/credits": {
+            "get": {
+                "tags": [
+                    "Multimodal"
+                ],
+                "summary": "Veo3 Credit Status",
+                "description": "Check remaining Google Veo3 / Adobe Firefly credits",
+                "responses": {
+                    "200": {
+                        "description": "Credit information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "credits_used": {
+                                            "type": "integer"
+                                        },
+                                        "credits_remaining": {
+                                            "type": "integer"
+                                        },
+                                        "monthly_limit": {
+                                            "type": "integer"
+                                        },
+                                        "is_simulated": {
+                                            "type": "boolean"
+                                        },
+                                        "mode": {
+                                            "type": "string",
+                                            "enum": [
+                                                "production",
+                                                "simulated"
+                                            ]
+                                        },
+                                        "videos_remaining_fast": {
+                                            "type": "integer"
+                                        },
+                                        "videos_remaining_quality": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/veo3/generate": {
+            "post": {
+                "tags": [
+                    "Multimodal"
+                ],
+                "summary": "Generate Veo3 Video",
+                "description": "Generate cinematic video using Google Veo 3.1 or Adobe Firefly",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "prompt": {
+                                        "type": "string",
+                                        "example": "A serene ocean sunset"
+                                    },
+                                    "quality": {
+                                        "type": "string",
+                                        "enum": [
+                                            "fast",
+                                            "quality"
+                                        ],
+                                        "default": "fast"
+                                    },
+                                    "duration": {
+                                        "type": "integer",
+                                        "default": 8
+                                    },
+                                    "include_audio": {
+                                        "type": "boolean",
+                                        "default": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Video generated successfully"
+                    },
+                    "429": {
+                        "description": "Rate limit / quota exhausted"
+                    },
+                    "503": {
+                        "description": "Veo3Generator not available"
+                    }
+                }
+            }
+        },
+        "/api/agents/all": {
+            "get": {
+                "tags": [
+                    "Agents"
+                ],
+                "summary": "Get All Agents",
+                "description": "Returns list of 106+ agents from AgentCommunicationHub",
+                "responses": {
+                    "200": {
+                        "description": "Agent list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "agents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "role": {
+                                                        "type": "string"
+                                                    },
+                                                    "status": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/agents/config": {
+            "get": {
+                "tags": [
+                    "Agents"
+                ],
+                "summary": "Get Agent Configuration",
+                "description": "Dynamic fleet configuration with UI metadata and video streams",
+                "responses": {
+                    "200": {
+                        "description": "Agent configuration with video paths",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "agents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "role": {
+                                                        "type": "string"
+                                                    },
+                                                    "icon": {
+                                                        "type": "string"
+                                                    },
+                                                    "status": {
+                                                        "type": "string"
+                                                    },
+                                                    "video": {
+                                                        "type": "string"
+                                                    },
+                                                    "capabilities": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/agents/communications": {
+            "get": {
+                "tags": [
+                    "Agents"
+                ],
+                "summary": "Get Message History",
+                "description": "Retrieve inter-agent messages from SQLite database",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 100
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Message history"
+                    }
+                }
+            }
+        },
+        "/api/agents/message": {
+            "post": {
+                "tags": [
+                    "Agents"
+                ],
+                "summary": "Send Inter-Agent Message",
+                "description": "Broadcast message through AgentCommunicationHub",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "from": {
+                                        "type": "string"
+                                    },
+                                    "to": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "object"
+                                    }
+                                },
+                                "required": [
+                                    "from",
+                                    "to",
+                                    "type",
+                                    "content"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Message sent"
+                    }
+                }
+            }
+        },
+        "/api/agents/capabilities": {
+            "get": {
+                "tags": [
+                    "Agents"
+                ],
+                "summary": "Get Agent Capabilities",
+                "description": "Returns capability matrix for all agents",
+                "responses": {
+                    "200": {
+                        "description": "Capability mapping"
+                    }
+                }
+            }
+        },
+        "/api/features/scan": {
+            "post": {
+                "tags": [
+                    "Features"
+                ],
+                "summary": "Trigger Feature Scan",
+                "description": "Deep recursive scan of codebase for agents, MCPs, APIs",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "path": {
+                                        "type": "string",
+                                        "example": "/Users/yacinebenhamou/aSiReM"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Scan initiated"
+                    }
+                }
+            }
+        },
+        "/api/features/all": {
+            "get": {
+                "tags": [
+                    "Features"
+                ],
+                "summary": "Get All Features",
+                "description": "Returns 311+ discovered features from scanner",
+                "responses": {
+                    "200": {
+                        "description": "Feature inventory"
+                    }
+                }
+            }
+        },
+        "/api/features/summary": {
+            "get": {
+                "tags": [
+                    "Features"
+                ],
+                "summary": "Get Feature Summary",
+                "description": "High-level feature counts by category",
+                "responses": {
+                    "200": {
+                        "description": "Feature summary"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Agent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "idle",
+                            "thinking",
+                            "active",
+                            "evolving"
+                        ]
+                    },
+                    "capabilities": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "WebSocketEvent": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                }
+            }
+        }
+    }
+}

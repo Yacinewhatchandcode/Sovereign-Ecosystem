@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # 🧠 The Sovereign Brain & API
+  sovereign-core:
+    build: 
+      context: ..
+      dockerfile: Dockerfile.sovereign
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../sovereign-dashboard:/app/sovereign-dashboard
+      - ../autonomy_agents:/app/autonomy_agents
+    environment:
+      - SOVEREIGN_ENV=production
+      - AGENT_MESH_SIZE=5021
+    networks:
+      - sovereign-net
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+
+  # 👁️ The Visualizer
+  sovereign-ui:
+    image: nginx:alpine
+    volumes:
+      - ../web-ui:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    networks:
+      - sovereign-net
+
+  # 💾 Swarm Memory
+  redis:
+    image: redis:alpine
+    networks:
+      - sovereign-net
+
+  # 🗣️ Voice Engine
+  speaking-engine:
+    build:
+      context: ..
+      dockerfile: Dockerfile.speaking
+    deploy:
+       resources:
+         reservations:
+           devices:
+             - driver: nvidia
+               count: 1
+               capabilities: [gpu]
+    networks:
+      - sovereign-net
+
+networks:
+  sovereign-net:
+    driver: bridge

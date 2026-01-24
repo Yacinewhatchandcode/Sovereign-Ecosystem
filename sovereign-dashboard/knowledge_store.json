@@ -1,0 +1,191 @@
+{
+  "id": "snapshot-20260120-075556",
+  "timestamp": "2026-01-20T07:55:56.873292",
+  "disk_files": [
+    "BackendFeature(id='feat_00001', name='podcast_play', feature_type='api', file_path='test_violations/mock_api.py', line_number=4, description='Podcast play endpoint.     Status: MOCKED - needs real implementation', dependencies=[], capabilities=[])",
+    "BackendFeature(id='feat_00002', name='veo3_generate', feature_type='api', file_path='test_violations/mock_api.py', line_number=16, description='Veo3 video generation.     TODO: Replace SIMULATION with real Google API', dependencies=[], capabilities=[])",
+    "FrontendFeature(id='feat_00003', name='mock_ui.html', feature_type='page', file_path='test_violations/mock_ui.html', line_number=1, description='HTML Page: mock_ui.html', props=['div#results', 'button#btnPlay', 'button#btnStop'], events=['click'])"
+  ],
+  "agents": [
+    {
+      "id": "azirem",
+      "name": "AZIREM",
+      "capabilities": [
+        "orchestrate",
+        "evolve",
+        "learn",
+        "broadcast"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "scanner",
+      "name": "Scanner",
+      "capabilities": [
+        "scan_files",
+        "detect_patterns",
+        "analyze_code"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "classifier",
+      "name": "Classifier",
+      "capabilities": [
+        "classify_files",
+        "categorize",
+        "rate_importance"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "extractor",
+      "name": "Extractor",
+      "capabilities": [
+        "extract_patterns",
+        "find_functions",
+        "parse_code"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "summarizer",
+      "name": "Summarizer",
+      "capabilities": [
+        "summarize",
+        "document",
+        "explain"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "evolution",
+      "name": "Evolution",
+      "capabilities": [
+        "evolve",
+        "adapt",
+        "improve",
+        "learn"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "researcher",
+      "name": "Researcher",
+      "capabilities": [
+        "web_search",
+        "find_patterns",
+        "research"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "architect",
+      "name": "Architect",
+      "capabilities": [
+        "design",
+        "plan",
+        "structure"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "memory",
+      "name": "Memory",
+      "capabilities": [
+        "store",
+        "recall",
+        "search_memory"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "embedding",
+      "name": "Embedding",
+      "capabilities": [
+        "embed",
+        "vectorize",
+        "similarity_search"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "docgen",
+      "name": "DocGen",
+      "capabilities": [
+        "generate_docs",
+        "create_readme",
+        "api_docs"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "mcp",
+      "name": "MCP",
+      "capabilities": [
+        "github",
+        "supabase",
+        "perplexity",
+        "filesystem"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    },
+    {
+      "id": "veo3",
+      "name": "Veo3",
+      "capabilities": [
+        "generate_video",
+        "cinematic",
+        "veo3_api"
+      ],
+      "summary": "",
+      "dom_elements": [],
+      "api_specs": [],
+      "files_indexed": []
+    }
+  ],
+  "api_specs": [],
+  "dom_elements": [],
+  "summary": {
+    "total_files": 3,
+    "total_agents": 13,
+    "total_dom_elements": 0,
+    "total_api_specs": 0
+  }
+}

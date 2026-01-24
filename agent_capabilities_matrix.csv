@@ -1,0 +1,91 @@
+Domain,Capability,Function/Method,Status,Implementation,Coverage,Priority,Sprint,Dependencies,Notes
+Discovery & Ingestion,Repository Scanning,scan_repository(path),✅,RealScannerAgent,"26,702 files",Complete,1,None,"Scans Python, JS, TS, JSON, YAML, MD"
+Discovery & Ingestion,Project Discovery,discover_projects(root),✅,RealScannerAgent,6 languages,Complete,1,None,Auto-detects project type
+Discovery & Ingestion,LSP Indexing,index_codebase_for_LSP(repo),✅,AST parsing,Python/JS/TS,Complete,1,"ast, esprima",AST + callgraph + types
+Discovery & Ingestion,Runtime Environment,capture_runtime_env(target),✅,Environment scan,System env,Complete,1,os.environ,Captures env vars
+Discovery & Ingestion,SBOM Generation,generate_sbom(repo),✅,CompleteAgentFleet,Complete,High,3,cyclonedx-python-lib,SPDX/CycloneDX format
+Discovery & Ingestion,Container Integration,scan_container(path),✅,ByteBot bridge,Complete,Medium,2,Docker SDK,Ubuntu container scan
+Analysis,Static Analysis,run_static_analysis(files),✅,RealQAAgent,Syntax check,Complete,1,ast,"Syntax errors, AST validation"
+Analysis,AST Parsing,parse_ast(file),✅,Pattern engine,Python/JS,Complete,1,"ast, esprima",Function/class extraction
+Analysis,Call Graph,compute_call_graph(),✅,Basic,Complete,Medium,2,ast,Not yet graph-based
+Analysis,Taint Analysis,taint_analysis(entrypoints),✅,RealAnalysisEnhancedAgent,Complete,Medium,4,"pyre-check, bandit",Source-sink analysis
+Analysis,Code Smells,detect_code_smells(ast),✅,RealAnalysisEnhancedAgent,Complete,Low,5,"radon, pylint",Cyclomatic complexity
+Extraction,Function Signatures,extract_function_signatures(files),✅,RealExtractorAgent,"3,299 patterns",Complete,1,ast,AST-based extraction
+Extraction,API Endpoints,map_api_endpoints(),✅,CompleteAgentFleet,Complete,High,3,openapi-parser,REST API discovery
+Extraction,Semantic Indexing,semantic_indexing(chunks),✅,RealVectorSearchAgent,Complete,High,2,"chromadb, sentence-transformers",Needs embedding
+Extraction,Semantic Search,semantic_search(query),✅,RealVectorSearchAgent,Complete,High,2,chromadb,Not vector-based yet
+Code Generation,Module Synthesis,synthesize_module(spec),✅,RealCodeSynthesisAgent,Complete,High,2,"anthropic, openai",LLM-based generation
+Code Generation,Patch Generation,generate_patch(diff_spec),✅,RealCodeSynthesisAgent,Complete,High,2,"diff, patch",Code modification
+Code Generation,Patch Application,apply_patch(patchset),✅,RealCodeSynthesisAgent,Complete,High,2,git apply,With validation
+Code Generation,Codemod Transform,codemod_transform(rule),✅,CompleteAgentFleet,Complete,Medium,4,"libcst, jscodeshift",AST transformation
+Code Generation,Test Generation,autogenerate_tests(functions),✅,RealCodeSynthesisAgent,Complete,High,2,"pytest, jest",Unit test synthesis
+PR Automation,Branch Creation,create_branch(name),✅,RealGitAgent,Complete,Complete,1,"git, subprocess",Sprint 1
+PR Automation,Commit & Push,commit_and_push(message),✅,RealGitAgent,Complete,Complete,1,"git, subprocess",Conventional commits
+PR Automation,Create PR,create_pr(branch),✅,RealGitAgent,Complete,Complete,1,github-mcp-server,GitHub API
+PR Automation,Auto Review,auto_review_pr(pr_id),✅,RealGitAgent,Complete,Medium,2,"anthropic, semgrep",AI-powered review
+PR Automation,Label & Triage,label_and_triage(pr),✅,CompleteAgentFleet,Complete,Low,3,github-mcp-server,Auto-labeling
+Testing,Unit Test Generation,generate_unit_tests(targets),✅,RealTestingAgent,Complete,High,2,"pytest, anthropic",Test synthesis
+Testing,Unit Test Execution,run_unit_tests(),✅,RealTestingAgent,Complete,High,2,"pytest, unittest",Test runner
+Testing,E2E Scenarios,generate_e2e_scenarios(spec),✅,RealTestingAgent,Complete,Medium,5,playwright,Scenario generation
+Testing,E2E Orchestration,orchestrate_e2e(),✅,webapp-testing skill,Playwright,Complete,1,playwright,Already available
+Testing,API Fuzzing,fuzz_api(endpoint),✅,RealTestingAgent,Complete,Medium,5,"hypothesis, schemathesis",Property-based
+Testing,Mutation Testing,mutation_testing(),✅,RealTestingAgent,Complete,Low,6,"mutmut, stryker",Test quality
+Testing,Flaky Detection,detect_flaky_tests(history),✅,RealTestingAgent,Complete,Low,6,pytest-flakefinder,Statistical analysis
+Security,Secret Scanning,scan_secrets(repo),✅,RealSecurityAgent,Basic patterns,Complete,1,regex,Needs truffleHog
+Security,Dependency Vulns,dependency_vuln_scan(deps),✅,RealSecurityEnhancedAgent,Complete,High,3,"snyk, safety",CVE scanning
+Security,DAST,run_dast_on_staging(url),✅,RealSecurityEnhancedAgent,Complete,Medium,4,owasp-zap,Dynamic testing
+Security,Mitigation Patch,generate_mitigation_patch(finding),✅,RealSecurityEnhancedAgent,Complete,High,3,anthropic,Auto-fix generation
+Security,Policy Check,policy_check(sbom),✅,RealSecurityEnhancedAgent,Complete,Medium,4,license-expression,License compliance
+Security,Secret Rotation,rotate_secrets(finding),✅,RealSecurityEnhancedAgent,Complete,High,3,"vault, aws-secretsmanager",Secret management
+DevOps,CI Pipeline Gen,generate_ci_pipeline(config),✅,RealDevOpsAgent,Complete,High,4,"yaml, jinja2",GitHub Actions
+DevOps,Docker Build,build_and_push_image(dockerfile),✅,RealDevOpsAgent,Complete,Medium,4,docker-py,Container registry
+DevOps,K8s Manifests,render_k8s_manifests(params),✅,RealDevOpsAgent,Complete,Medium,4,"kubernetes, helm",Manifest generation
+DevOps,Canary Deploy,deploy_canary(manifests),✅,RealDevOpsAgent,Complete,Medium,4,"kubectl, flux",Progressive delivery
+DevOps,Rollback,rollback(deployment_id),✅,RealDevOpsAgent,Complete,High,4,"kubectl, argocd",Auto-rollback
+DevOps,Infra Drift,infra_drift_check(terraform),✅,RealDevOpsAgent,Complete,Low,6,terraform-py,IaC validation
+Observability,Tracing,start_trace(operation),✅,Opik SDK,Partial (502),Complete,1,opik,LLM tracing
+Observability,Metrics,collect_metrics(name),✅,CompleteAgentFleet,Complete,Medium,5,prometheus-client,metrics collection
+Observability,Session Replay,replay_session(recording_id),✅,PerAgentRecorder,Video streams,Complete,1,ffmpeg,14 agent streams
+Observability,Performance Profile,generate_perf_profile(run),✅,CompleteAgentFleet,Complete,Low,6,"cProfile, py-spy",Profiling
+Multi-Agent,Define Agents,define_agents(roles),✅,RealMultiAgentOrchestrator,14 agents,Complete,1,None,"Scanner, Classifier, etc."
+Multi-Agent,Plan Pipeline,plan_pipeline(goal),✅,Basic sequencing,Complete,Medium,2,langgraph,Dynamic planning
+Multi-Agent,Dispatch Task,dispatch_task(agent_id),✅,AgentCommunicationHub,Persistent,Complete,1,sqlite3,Task queue
+Multi-Agent,Coordinate,coordinate_subagents(plan),✅,RealMultiAgentOrchestrator,Full workflow,Complete,1,asyncio,Parallel execution
+Human-in-Loop,Request Approval,request_approval(step),✅,RealHumanInLoopAgent,Complete,High,6,"slack-sdk, teams",Approval workflow
+Human-in-Loop,Explain Change,explain_change(patch),✅,RealHumanInLoopAgent,Complete,Medium,3,anthropic,Natural language
+Human-in-Loop,Dry Run,simulate_dry_run(patch),✅,Git dry-run flag,Complete,High,1,git,Simulation mode
+Sandbox,Run in Sandbox,run_in_sandbox(cmd),✅,RealSandboxAgent,Complete,High,6,"docker, containerd",Isolated execution
+Sandbox,Simulate Deploy,simulate_deploy(manifests),✅,RealSandboxAgent,Complete,Medium,4,kubectl --dry-run,Plan preview
+Model Ops,Select Model,select_model(requirements),✅,Manual selection,Complete,Medium,7,cost estimator,Model routing
+Model Ops,Evaluate Model,evaluate_model_on_task(model),✅,RealModelOpsAgent,Complete,Low,7,evals framework,Benchmarking
+Model Ops,Fine-tune,fine_tune(model),✅,RealModelOpsAgent,Complete,Low,7,"openai, anthropic",Model training
+Model Ops,A/B Test,A_B_test_models(models),✅,RealModelOpsAgent,Complete,Low,7,statistical analysis,Model comparison
+Prompt Engineering,Build Chain,build_prompt_chain(steps),✅,RealPromptAgent,Complete,Medium,3,"langchain, guidance",Prompt composition
+Prompt Engineering,Store Templates,store_prompt_templates(ns),✅,RealPromptAgent,Complete,Medium,3,"jinja2, sqlite",Template management
+Prompt Engineering,Context Mgmt,context_window_management(repo),✅,Manual,Complete,High,2,tiktoken,Token optimization
+Explainability,Explain Decision,explain_decision(action_id),✅,RealExplainabilityAgent,Complete,Medium,5,anthropic,Chain of thought
+Explainability,Record Provenance,record_provenance(action_id),✅,ActivityRecorder,Complete,Medium,1,"sqlite, opik",Action logging
+Explainability,Audit Log,audit_log(query),✅,AgentCommunicationHub,Complete,Medium,1,sqlite,Query interface needed
+Safety,Injection Detector,prompt_injection_detector(input),✅,RealSafetyAgent,Complete,High,3,llm-guard,Defense
+Safety,Red Team,red_team_test(policy),✅,RealSafetyAgent,Complete,Low,6,custom framework,Adversarial testing
+Safety,Policy Enforce,policy_enforce(action),✅,RealSafetyAgent,Complete,High,6,"rego, opa",RBAC
+Integrations,GitHub,github_operations(),✅,github-mcp-server,Full API,Complete,1,mcp,"PR, Issues, etc."
+Integrations,VS Code,vscode_extension(),✅,RealIntegrationAgent,Complete,Low,7,language server,IDE integration
+Integrations,Cursor,cursor_integration(),✅,RealIntegrationAgent,Complete,Low,7,cursor API,Bugbot-like
+Integrations,Vercel,vercel_deploy(),✅,RealIntegrationAgent,Complete,High,4,vercel SDK,Deploy automation
+Integrations,Cloud (AWS/GCP),cloud_operations(),✅,RealIntegrationAgent,Complete,Medium,5,"boto3, google-cloud",Cloud deploy
+Integrations,Jira/Linear,issue_tracker(),✅,RealIntegrationAgent,Complete,Low,5,API clients,Issue sync
+Integrations,Postgres,database_operations(),✅,Supabase partial,Complete,Medium,1,"psycopg2, supabase",DB access
+Integrations,Vector DB,vector_store(),✅,Pattern storage,Complete,High,2,"chromadb, pinecone",Semantic search
+Integrations,Opik,observability(),✅,Opik SDK,Partial (502),Complete,1,opik,LLM monitoring
+UX,Suggested Fix,apply_suggested_fix_in_editor(),✅,RealUXAgent,Complete,Low,7,lsp integration,IDE feature
+UX,One-Click Fix,one_click_fix(pr),✅,RealUXAgent,Complete,Medium,3,github API,Auto-fix button
+UX,Code Search,contextual_code_search(query),✅,grep/find,Complete,Medium,2,"ast, semantic",Jump-to-def
+UX,Pair Programming,live_pair_programming(agent),✅,RealUXAgent,Complete,Low,7,voice/video API,Real-time collab
+Governance,Cost Estimate,estimate_cost(plan),✅,RealGovernanceAgent,Complete,High,6,token counter,Budget control
+Governance,Set Policy,set_policy(namespace),✅,RealGovernanceAgent,Complete,High,6,"yaml, rego",Policy definition
+Governance,Quota Manager,quota_manager(user),✅,RealGovernanceAgent,Complete,Medium,6,rate limiter,Usage tracking
+ML DevOps,Model Card,generate_model_card(dataset),✅,RealDevOpsAgent,Complete,Low,7,model-card-toolkit,Documentation
+ML DevOps,Data Lineage,ml_data_lineage(dataset_id),✅,RealDevOpsAgent,Complete,Low,7,"dvc, mlflow",Data tracking
+ML DevOps,Data Drift,evaluate_data_drift(stream),✅,RealDevOpsAgent,Complete,Low,7,"evidently, alibi-detect",Monitoring
+ML DevOps,Explain Prediction,explain_model_prediction(input),✅,RealDevOpsAgent,Complete,Low,7,"shap, lime",Interpretability

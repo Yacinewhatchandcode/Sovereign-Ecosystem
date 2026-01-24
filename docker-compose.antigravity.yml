@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Validation Node - Antigravity Enforcer
+  validation-node:
+    build:
+      context: .
+      dockerfile: Dockerfile.validator
+    ports:
+      - "4100:4100"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./sovereign-dashboard:/app
+      - ./reports:/reports
+    networks:
+      - antigravity
+    healthcheck:
+      test: [ "CMD-SHELL", "python3 -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:4100/health\")'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Simulation Agent 1: UI Auditor
+  simulation-agent-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.simulation_agent
+    ports:
+      - "3001:3001"
+    environment:
+      - AGENT_ID=ui-audit
+      - AGENT_NAME=UI Auditor
+      - AGENT_PORT=3001
+    networks:
+      - antigravity
+
+  # Simulation Agent 2: Backend Indexer
+  simulation-agent-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.simulation_agent
+    ports:
+      - "3002:3002"
+    environment:
+      - AGENT_ID=backend-intel
+      - AGENT_NAME=Backend Indexer
+      - AGENT_PORT=3002
+    networks:
+      - antigravity
+
+  # Simulation Agent 3: Security Scanner
+  simulation-agent-security:
+    build:
+      context: .
+      dockerfile: Dockerfile.simulation_agent
+    ports:
+      - "3003:3003"
+    environment:
+      - AGENT_ID=security-scan
+      - AGENT_NAME=Security Scanner
+      - AGENT_PORT=3003
+    networks:
+      - antigravity
+
+networks:
+  antigravity:
+    driver: bridge
+
+volumes:
+  knowledge_store:
+  reports:

@@ -1,0 +1,1300 @@
+# Exhaustive keywords and metadata for semantic scanning (English)
+# Generated for repo-wide, multi-repo, multi-language, end-to-end flow gap detection.
+version: 1.0
+generated_by: ChatGPT
+description: |
+  Large, structured set of keywords, metadata fields, regex signatures, heuristics and exclusions
+  optimized to detect contract gaps, mock incoherence, front-end/back-end workflow breaks,
+  E2E inconsistencies and repository coverage gaps.
+categories:
+  programming_languages:
+    - python
+    - javascript
+    - typescript
+    - java
+    - csharp
+    - cpp
+    - c
+    - go
+    - rust
+    - ruby
+    - php
+    - swift
+    - kotlin
+    - scala
+    - r
+    - perl
+    - haskell
+    - elixir
+    - erlang
+    - dart
+    - lua
+    - matlab
+  frameworks_and_libraries:
+    - react
+    - react-native
+    - nextjs
+    - gatsby
+    - angular
+    - vue
+    - svelte
+    - nuxt
+    - ember
+    - backbone
+    - redux
+    - mobx
+    - vuex
+    - rxjs
+    - jquery
+    - bootstrap
+    - tailwind
+    - material-ui
+    - chakra-ui
+    - antd
+    - semantic-ui
+    - vite
+    - webpack
+    - parcel
+    - rollup
+    - babel
+    - typescript-compiler
+    - ts-node
+    - express
+    - fastify
+    - nestjs
+    - koa
+    - hapi
+    - django
+    - flask
+    - fastapi
+    - spring
+    - spring-boot
+    - quarkus
+    - micronaut
+    - rails
+    - sinatra
+    - laravel
+    - symfony
+    - dotnet
+    - aspnet
+    - aspnet-core
+    - akka
+    - play
+    - grails
+    - gin
+    - echo
+    - phoenix
+  databases_and_storage:
+    - postgresql
+    - mysql
+    - mariadb
+    - sqlite
+    - mongodb
+    - cassandra
+    - dynamodb
+    - redis
+    - memcached
+    - elasticsearch
+    - opensearch
+    - cockroachdb
+    - timescaledb
+    - influxdb
+    - bigquery
+    - snowflake
+    - redshift
+    - hive
+    - hadoop
+    - parquet
+    - orc
+    - avro
+    - blob-storage
+    - s3
+    - gcs
+    - azure-blob
+  messaging_and_streaming:
+    - kafka
+    - rabbitmq
+    - pulsar
+    - nats
+    - activemq
+    - stomp
+    - mqtt
+    - sqs
+    - sns
+    - google-pubsub
+    - eventbridge
+    - kafka-connect
+    - kafka-streams
+    - kinesis
+    - flink
+    - beam
+  ci_cd_and_build:
+    - github-actions
+    - gitlab-ci
+    - jenkins
+    - travis-ci
+    - circleci
+    - buildkite
+    - argo-cd
+    - tekton
+    - spinnaker
+    - bamboo
+    - azure-pipelines
+    - bitbucket-pipelines
+    - docker
+    - docker-compose
+    - podman
+    - build
+    - release
+    - artifact
+    - nexus
+    - artifactory
+    - goreleaser
+    - bazel
+    - maven
+    - gradle
+    - sbt
+    - cmake
+    - makefile
+  cloud_and_infrastructure:
+    - aws
+    - azure
+    - gcp
+    - cloudformation
+    - terraform
+    - pulumi
+    - nomad
+    - consul
+    - kubernetes
+    - k8s
+    - eks
+    - aks
+    - gke
+    - kubectl
+    - helm
+    - helmfile
+    - istio
+    - envoy
+    - linkerd
+    - contour
+    - traefik
+    - kong
+    - ambassador
+    - openfaas
+    - serverless
+    - lambda
+    - faas
+    - cloud-run
+    - app-engine
+    - ec2
+    - ecs
+    - fargate
+    - ecr
+    - acr
+    - gcr
+  security_and_compliance:
+    - oauth
+    - oauth2
+    - openid
+    - oidc
+    - saml
+    - jwt
+    - x509
+    - tls
+    - mtls
+    - hmac
+    - rsa
+    - ecdsa
+    - ed25519
+    - argon2
+    - bcrypt
+    - scrypt
+    - pbkdf2
+    - encryption
+    - key-rotation
+    - kms
+    - vault
+    - sops
+    - sigstore
+    - sbom
+    - cyclonedx
+    - spdx
+    - sast
+    - dast
+    - pentest
+    - cve
+    - cwe
+    - gdpr
+    - hipaa
+    - pci-dss
+    - iso27001
+  testing_and_quality:
+    - unit-test
+    - integration-test
+    - end-to-end
+    - e2e
+    - contract-test
+    - component-test
+    - smoke-test
+    - regression-test
+    - performance-test
+    - load-test
+    - stress-test
+    - chaos-test
+    - mutation-test
+    - flaky-test
+    - test-fixture
+    - mock
+    - stub
+    - spy
+    - test-runner
+    - pytest
+    - jest
+    - mocha
+    - jasmine
+    - karma
+    - cypress
+    - playwright
+    - selenium
+    - junit
+    - testng
+    - tox
+    - robotframework
+  observability_and_monitoring:
+    - prometheus
+    - grafana
+    - datadog
+    - newrelic
+    - honeycomb
+    - instana
+    - jaeger
+    - zipkin
+    - opentelemetry
+    - tracing
+    - metrics
+    - logs
+    - alert
+    - pagerduty
+    - opsgenie
+    - sentry
+    - elastic-apm
+    - tracing-id
+  api_and_contracts:
+    - openapi
+    - openapi3
+    - swagger
+    - graphql
+    - graphql-schema
+    - grpc
+    - protobuf
+    - rpc
+    - rest
+    - soap
+    - rpc
+    - asyncapi
+    - api-gateway
+    - api-spec
+    - contract
+    - contract-version
+  frontend_ui_and_ux:
+    - accessibility
+    - a11y
+    - aria
+    - keyboard-navigation
+    - screen-reader
+    - focus-trap
+    - hydration
+    - ssr
+    - ssg
+    - csr
+    - pwa
+    - service-worker
+    - offline
+    - responsive
+    - viewport
+    - core-web-vitals
+    - lighthouse
+    - bundle-size
+    - code-splitting
+    - tree-shaking
+  performance_and_reliability:
+    - latency
+    - ttfb
+    - tti
+    - fcp
+    - lcp
+    - cls
+    - p95
+    - p99
+    - throughput
+    - concurrency
+    - saturation
+    - backpressure
+    - retry
+    - circuit-breaker
+    - bulkhead
+    - rate-limit
+    - throttling
+    - cache
+    - cache-invalidation
+  design_and_architecture:
+    - microservices
+    - monolith
+    - hexagonal-architecture
+    - clean-architecture
+    - ddd
+    - domain-driven-design
+    - bounded-context
+    - cqrs
+    - saga
+    - outbox-pattern
+    - event-driven
+    - pubsub
+    - event-sourcing
+    - eventual-consistency
+    - strong-consistency
+    - sharding
+    - partitioning
+  repo_and_devprocess:
+    - monorepo
+    - polyrepo
+    - gitflow
+    - trunk-based
+    - conventional-commits
+    - semantic-versioning
+    - changelog
+    - release-note
+    - codeowners
+    - contributing
+    - readme
+    - license
+    - ci-pipeline
+    - code-review
+    - approval-rule
+    - adr
+  file_types_and_manifests:
+    - Dockerfile
+    - README.md
+    - LICENSE
+    - CHANGELOG.md
+    - CONTRIBUTING.md
+    - CODE_OF_CONDUCT.md
+    - SECURITY.md
+    - package.json
+    - package-lock.json
+    - yarn.lock
+    - pnpm-lock.yaml
+    - Pipfile
+    - Pipfile.lock
+    - requirements.txt
+    - pyproject.toml
+    - pom.xml
+    - build.gradle
+    - build.gradle.kts
+    - go.mod
+    - go.sum
+    - Gemfile
+    - composer.json
+    - tsconfig.json
+    - .env
+    - .gitignore
+    - .dockerignore
+    - .helmignore
+  metrics_and_business:
+    - conversion-rate
+    - abandonment-rate
+    - retention
+    - churn
+    - activation
+    - mrr
+    - arpu
+    - nps
+    - sla
+    - slo
+    - rto
+    - rpo
+  misc:
+    - localization
+    - internationalization
+    - i18n
+    - l10n
+    - timezone
+    - telemetry
+    - correlation-id
+    - request-id
+    - feature-flag
+    - experiment
+    - a-b-test
+
+# Compact metadata schema to attach to each indexed chunk
+metadata_schema:
+  - name: component
+    type: keyword
+    examples: ["checkout", "search", "auth", "cart", "profile"]
+  - name: layer
+    type: keyword
+    examples: ["frontend", "backend", "api-gateway", "worker", "db"]
+  - name: flow_stage
+    type: keyword
+    examples: ["init", "submit", "confirm", "settle", "notify"]
+  - name: artifact_type
+    type: keyword
+    examples: ["api_spec", "mock", "test", "doc", "script"]
+  - name: contract_version
+    type: string
+    examples: ["v1", "v2", "2025-01-01"]
+  - name: severity
+    type: keyword
+    examples: ["critical", "major", "minor", "info"]
+  - name: detected_by
+    type: keyword
+    examples: ["semantic-scan", "static-scan", "runtime-trace", "manual"]
+  - name: sample
+    type: text
+    examples: ["snippet or log line showing the issue"]
+  - name: path
+    type: string
+    examples: ["/repos/projectA/src/checkout/handler.py"]
+  - name: last_seen
+    type: date
+    examples: ["2026-01-21"]
+
+# Regex signatures and token patterns useful for detection
+regex_signatures:
+  api_endpoints: 
+    - pattern: "(?i)\\b(GET|POST|PUT|PATCH|DELETE)\\s+/(api|v[0-9]+)/[\\w\-/.]+\b"
+  http_status_codes:
+    - pattern: "\\bHTTP/1\\.[01]\\s+(400|401|403|404|409|500|502|503|504)\\b"
+  jwt_pattern:
+    - pattern: "[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+"
+  bearer_auth:
+    - pattern: "(?i)Authorization:\\s*Bearer\\s+[A-Za-z0-9\-_.]+"
+  semantic_placeholder:
+    - pattern: "\\b(TODO|FIXME|HACK|XXX|REVIEW|BUG)\\b"
+  mock_call:
+    - pattern: "(?i)(mock|stub|fixture|fake|recorded_response|nock|msw|wiremock)"
+  schema_file:
+    - pattern: "(?i)(openapi|swagger|graphql|schema\.json|schema\.yaml|proto3|proto)"
+  sql_dml:
+    - pattern: "(?i)\\b(select|insert|update|delete)\\b"
+
+# Heuristics (rules) for flagging gaps and incoherence
+heuristics:
+  - id: H1
+    name: contract_mismatch
+    description: |
+      When an API spec (openapi/swagger/protobuf/graphql) lists a response field that
+      is not referenced or consumed by frontend components (JS/TS/React templates/GraphQL queries),
+      flag as possible backend-frontend contract gap.
+    detection:
+      - requires: ["api_spec", "frontend_code_chunks"]
+      - trigger: "schema_field_missing_in_frontend"
+  - id: H2
+    name: stale_mock
+    description: |
+      When recorded/mock responses are older than contract_version or contain fields
+      not present in current api_spec, flag mock_out_of_date and increase severity.
+    detection:
+      - requires: ["mock_files", "api_spec", "contract_version"]
+      - trigger: "mock_fields_mismatch"
+  - id: H3
+    name: orphan_ui_state
+    description: |
+      When UI logs or frontend code reference states or steps (e.g., onboarding_step_x)
+      that have no backend event/endpoint or DB state, flag missing_step/orphan_state.
+    detection:
+      - requires: ["frontend_logs", "backend_endpoints", "db_schema"]
+  - id: H4
+    name: inconsistent_auth
+    description: |
+      If frontend calls include authentication headers or tokens but server-side
+      routes are public or vice versa (server expects auth but frontend doesn't send),
+      flag session_mismatch/insufficient_scope.
+    detection:
+      - requires: ["frontend_requests", "server_route_metadata"]
+  - id: H5
+    name: unrealistic_mock_latency
+    description: |
+      When mock servers respond with near-zero latency for endpoints that are slow in production,
+      flag mock_latency_unrealistic to detect false positive test passes.
+    detection:
+      - requires: ["mock_configs", "production_traces"]
+  - id: H6
+    name: incomplete_e2e_coverage
+    description: |
+      If an E2E test suite exists but key business flows (purchase, signup) have no passing
+      end-to-end test or test artifacts show skipped steps, flag incomplete_checkout or onboarding_blocker.
+    detection:
+      - requires: ["e2e_tests", "business_flow_list"]
+
+# Detection scoring and priority weights
+scoring:
+  severity_weights:
+    critical: 100
+    major: 50
+    minor: 10
+    info: 1
+  token_overlap_threshold: 0.78  # similarity threshold for strong match
+  partial_overlap_threshold: 0.45
+  missing_field_penalty: 20
+  mock_mismatch_penalty: 30
+  contract_version_delta_penalty: 40
+
+# Exclusion / anti-omission rules (what to ignore)
+exclusions:
+  directories:
+    - .git
+    - node_modules
+    - bower_components
+    - dist
+    - build
+    - out
+    - target
+    - bin
+    - obj
+    - coverage
+    - .pytest_cache
+    - .mypy_cache
+    - .ruff_cache
+    - .venv
+    - venv
+    - __pycache__
+    - .cache
+    - tmp
+    - temp
+    - logs
+    - .idea
+    - .vscode
+    - .DS_Store
+    - vendor
+    - third_party
+  file_patterns:
+    - "*.min.js"
+    - "*.min.css"
+    - "*.map"
+    - "*.log"
+    - "*.bak"
+    - "*.tmp"
+    - "*.swp"
+    - "*.iml"
+  binaries:
+    - "*.exe"
+    - "*.dll"
+    - "*.so"
+    - "*.dylib"
+    - "*.jar"
+    - "*.war"
+    - "*.class"
+    - "*.zip"
+    - "*.tar"
+    - "*.gz"
+    - "*.7z"
+  media:
+    - "*.png"
+    - "*.jpg"
+    - "*.jpeg"
+    - "*.gif"
+    - "*.webp"
+    - "*.mp4"
+    - "*.mov"
+    - "*.mp3"
+  large_datasets:
+    - "*.csv"
+    - "*.parquet"
+    - "*.orc"
+    - "*.avro"
+    - "*.db"
+    - "*.sqlite"
+
+# File extensions to prioritize for indexing
+index_priorities:
+  highest:
+    - md
+    - rst
+    - adoc
+    - yaml
+    - yml
+    - json
+    - proto
+    - graphql
+    - py
+    - js
+    - ts
+    - java
+    - kt
+    - go
+    - rs
+    - cs
+    - sql
+  high:
+    - Dockerfile
+    - dockerfile
+    - tf
+    - hcl
+    - sh
+    - bash
+    - ps1
+    - gradle
+    - kts
+    - pom.xml
+
+# Example detection rules (pseudocode)
+detection_rules:
+  - id: R1
+    name: detect_missing_response_field
+    match:
+      - find_in: api_spec
+        pattern: "properties"
+      - not_find_in: frontend_code
+        pattern: "property_name"
+    action: tag_as: ["contract_gap","severity:major"]
+  - id: R2
+    name: detect_mock_stale_by_contract
+    match:
+      - find_in: mock_files
+        pattern: "recorded_response"
+      - find_in: api_spec
+        pattern: "response.properties"
+      - condition: "mock_fields \u2260 spec_fields"
+    action: tag_as: ["mock_out_of_date","severity:critical"]
+  - id: R3
+    name: detect_orphan_ui_state
+    match:
+      - find_in: frontend_logs
+        pattern: "onboarding_step_"
+      - not_find_in: backend_events
+        pattern: "onboarding_step_"
+    action: tag_as: ["orphan_state","severity:major"]
+
+# Recommended ingestion hints
+ingestion:
+  - read_all_text_files_with_encoding_detection: true
+  - chunk_strategy:
+      type: sliding_window
+      chunk_size_chars: 1200
+      overlap_chars: 200
+  - preserve_metadata: [path, repo, branch, commit_sha, author, last_modified]
+  - detect_language_per_chunk: true
+  - compute_embeddings_model: choose_code_aware_if_available
+  - store_vector_metadata: include(metadata_schema)
+
+# Sample mapping of compact keys (for lightweight matching)
+compact_keys_map:
+  ui_actions:
+    - click
+    - submit
+    - navigate
+    - open
+    - close
+    - select
+  ui_states:
+    - loading
+    - success
+    - error
+    - empty
+    - partial
+    - offline
+  api_contract:
+    - req_schema
+    - resp_schema
+    - enum_mismatch
+    - type_mismatch
+
+# Example sample records (for testing ingestion)
+samples:
+  - id: S1
+    sample_text: "POST /api/v1/checkout -> 500 Internal Server Error, trace-id: abc123"
+    expected_tags: ["api_error","server_5xx","trace-id"]
+  - id: S2
+    sample_text: "Mock file contains 'total_price' but openapi.yaml no longer lists 'total_price' in responses"
+    expected_tags: ["mock_out_of_date","contract_gap"]
+
+
+# Confusion / error / drift keywords between spec (end-user intent) and implementation (agent/code)
+confusion_error_drift:
+  spec_vs_code_gap_keywords:
+    - spec_drift
+    - implementation_drift
+    - requirement_drift
+    - behavior_drift
+    - contract_drift
+    - intent_mismatch
+    - expectation_mismatch
+    - spec_ambiguity
+    - ambiguous_requirement
+    - unclear_acceptance_criteria
+    - missing_acceptance_criteria
+    - inconsistent_definition
+    - conflicting_requirements
+    - contradictory_specs
+    - spec_incomplete
+    - spec_outdated
+    - spec_not_updated
+    - undocumented_behavior
+    - undocumented_side_effect
+    - hidden_dependency
+    - implicit_requirement
+    - assumption
+    - wrong_assumption
+    - edge_case
+    - unhandled_edge_case
+    - corner_case
+    - undefined_behavior
+    - unspecified_behavior
+    - non_deterministic
+    - nondeterminism
+    - race_condition
+    - time_dependency
+    - ordering_dependency
+    - flaky_behavior
+    - intermittent_failure
+    - transient_error
+    - heisenbug
+    - regression
+    - backward_incompatible
+    - breaking_change
+    - silent_break
+    - silent_failure
+    - partial_failure
+    - partial_success
+    - degraded_mode
+    - fallback_triggered
+    - fail_open
+    - fail_closed
+    - error_swallowed
+    - swallowed_exception
+    - exception_masked
+    - error_masked
+    - incorrect_default
+    - wrong_default
+    - default_value_mismatch
+    - null_handling
+    - null_pointer
+    - undefined_null
+    - nil_pointer
+    - nan
+    - infinity
+    - overflow
+    - underflow
+    - precision_loss
+    - rounding_error
+    - timezone_bug
+    - locale_bug
+    - encoding_bug
+    - utf8_issue
+    - parsing_error
+    - serialization_error
+    - deserialization_error
+    - schema_mismatch
+    - field_missing
+    - field_renamed
+    - field_deprecated
+    - field_unused
+    - extra_field
+    - unknown_field
+    - enum_mismatch
+    - type_mismatch
+    - unit_mismatch
+    - currency_mismatch
+    - rounding_policy_mismatch
+    - validation_gap
+    - validation_missing
+    - validation_incorrect
+    - validation_bypass
+    - sanitization_missing
+    - input_not_sanitized
+    - output_not_sanitized
+    - injection_risk
+    - sql_injection
+    - xss_risk
+    - csrf_risk
+    - auth_bypass
+    - permission_bypass
+    - privilege_escalation
+    - insecure_direct_object_reference
+    - idor
+    - insecure_default
+    - misconfiguration
+    - config_drift
+    - env_drift
+    - feature_flag_mismatch
+    - flag_stale
+    - flag_leak
+    - rollout_incomplete
+    - canary_inconsistent
+    - shadow_traffic_mismatch
+    - inconsistent_routing
+    - cache_stale
+    - cache_poison
+    - stale_data
+    - eventual_consistency_bug
+    - read_after_write
+    - write_skew
+    - lost_update
+    - double_submit
+    - duplicate_request
+    - duplicate_event
+    - dedup_missing
+    - idempotency_missing
+    - idempotency_violation
+    - replay_attack
+    - retry_storm
+    - thundering_herd
+    - rate_limit_missing
+    - quota_mismatch
+    - timeout_mismatch
+    - timeout_too_low
+    - timeout_too_high
+    - retry_policy_mismatch
+    - backoff_missing
+    - jitter_missing
+    - circuit_breaker_missing
+    - circuit_breaker_misconfigured
+    - bulkhead_missing
+    - resource_leak
+    - memory_leak
+    - file_handle_leak
+    - connection_leak
+    - thread_leak
+    - deadlock
+    - livelock
+    - starvation
+    - contention
+    - lock_contention
+    - priority_inversion
+    - slow_path
+    - hot_path
+    - n_plus_one
+    - query_plan_regression
+    - index_missing
+    - index_unused
+    - pagination_bug
+    - cursor_bug
+    - offset_bug
+    - sorting_bug
+    - filtering_bug
+    - inconsistent_order
+    - inconsistent_pagination
+    - off_by_one
+    - boundary_error
+    - rounding_boundary
+    - overflow_boundary
+    - access_denied
+    - unauthorized
+    - forbidden
+    - not_found
+    - conflict
+    - precondition_failed
+    - too_many_requests
+    - internal_error
+    - service_unavailable
+    - bad_gateway
+    - gateway_timeout
+    - dependency_down
+    - downstream_failure
+    - upstream_failure
+    - partial_outage
+    - brownout
+    - outage
+    - incident
+    - degraded_performance
+    - latency_spike
+    - p95_regression
+    - p99_regression
+    - error_rate_spike
+    - alert_noise
+    - false_positive
+    - false_negative
+    - missing_alert
+    - misfiring_alert
+    - missing_metric
+    - missing_log
+    - missing_trace
+    - broken_dashboard
+    - broken_slo
+    - slo_violation
+    - sla_violation
+    - rto_violation
+    - rpo_violation
+    - observability_gap
+    - no_correlation_id
+    - trace_id_missing
+    - request_id_missing
+    - span_missing
+    - sampling_too_aggressive
+    - sampling_mismatch
+    - pii_leak
+    - secrets_leak
+    - token_leak
+    - log_redaction_missing
+    - data_leak
+    - privacy_violation
+    - gdpr_violation
+    - retention_violation
+    - audit_gap
+    - missing_audit_log
+    - audit_log_incomplete
+    - audit_trail_missing
+    - non_repudiation_gap
+    - insufficient_logging
+    - insufficient_monitoring
+    - missing_runbook
+    - outdated_runbook
+    - missing_playbook
+    - missing_postmortem
+    - incomplete_rca
+    - weak_rca
+    - unclear_owner
+    - ownership_gap
+    - handoff_gap
+    - unclear_boundary
+    - unclear_responsibility
+    - dependency_confusion
+    - coupling
+    - tight_coupling
+    - cyclic_dependency
+    - circular_dependency
+    - brittle_integration
+    - integration_gap
+    - api_change_not_propagated
+    - docs_not_updated
+    - readme_outdated
+    - spec_not_reflected
+    - behavior_not_reflected
+    - mismatch_documentation
+    - mismatch_implementation
+    - mismatch_ui_backend
+    - mismatch_frontend_backend
+    - mismatch_mobile_backend
+    - mismatch_web_backend
+    - mismatch_gateway_backend
+    - mismatch_worker_backend
+    - mismatch_event_schema
+    - mismatch_db_schema
+    - migration_missing
+    - migration_out_of_order
+    - migration_failed
+    - rollback_missing
+    - rollback_failed
+    - rollback_incomplete
+    - rollback_risky
+    - deployment_drift
+    - config_not_applied
+    - env_var_missing
+    - env_var_wrong
+    - secrets_missing
+    - secrets_wrong
+    - permissions_wrong
+    - iam_misconfigured
+    - policy_misconfigured
+    - sso_misconfigured
+    - oidc_misconfigured
+    - jwt_claims_mismatch
+    - scopes_mismatch
+    - audience_mismatch
+    - issuer_mismatch
+    - clock_skew
+    - time_skew
+    - session_expired
+    - refresh_failed
+    - token_refresh_loop
+    - login_loop
+    - redirect_loop
+    - callback_mismatch
+    - webhook_signature_invalid
+    - webhook_not_delivered
+    - webhook_retried
+    - webhook_duplicate
+    - webhook_timeout
+    - webhook_schema_changed
+    - webhook_contract_gap
+    - event_not_emitted
+    - event_emitted_wrong
+    - event_emitted_twice
+    - event_ordering_wrong
+    - event_processing_failed
+    - event_processing_delayed
+    - consumer_lag
+    - poison_message
+    - dlq_growth
+    - dlq_unhandled
+    - reprocess_failed
+    - replay_failed
+    - compensation_missing
+    - saga_incomplete
+    - outbox_missing
+    - outbox_stuck
+    - inbox_missing
+    - exactly_once_assumed
+    - at_least_once_not_handled
+    - at_most_once_not_handled
+    - state_machine_bug
+    - invalid_transition
+    - transition_missing
+    - transition_unreachable
+    - unreachable_state
+    - orphan_state
+    - stuck_state
+    - inconsistent_state
+    - state_desync
+    - ui_desync
+    - stale_ui
+    - stale_cache
+    - optimistic_ui_wrong
+    - optimistic_update_rollback_missing
+    - duplicate_click
+    - double_click
+    - double_payment
+    - double_charge
+    - partial_refund
+    - refund_mismatch
+    - invoice_mismatch
+    - tax_mismatch
+    - pricing_mismatch
+    - discount_mismatch
+    - promotion_mismatch
+    - shipping_mismatch
+    - address_validation_gap
+    - checkout_blocker
+    - payment_declined
+    - payment_timeout
+    - payment_webhook_missing
+    - confirmation_email_missing
+    - notification_missing
+    - notification_duplicate
+    - notification_delayed
+    - email_bounced
+    - sms_failed
+    - push_failed
+    - user_confusion
+    - unclear_error_message
+    - misleading_error_message
+    - wrong_copy
+    - inconsistent_copy
+    - inconsistent_labels
+    - inconsistent_cta
+    - inconsistent_navigation
+    - broken_link
+    - broken_route
+    - deep_link_broken
+    - missing_redirect
+    - 404_loop
+    - 500_loop
+    - spinner_forever
+    - infinite_loading
+    - stuck_loading
+    - stuck_spinner
+    - blank_screen
+    - white_screen
+    - crash
+    - app_crash
+    - ui_crash
+    - server_crash
+    - worker_crash
+    - oom
+    - out_of_memory
+    - stack_overflow
+    - segmentation_fault
+    - panic
+    - fatal_error
+    - uncaught_exception
+    - unhandled_promise
+    - promise_rejection
+    - error_boundary
+    - error_boundary_missing
+    - global_error_handler_missing
+    - error_handler_incomplete
+    - retry_loop
+    - infinite_retry
+    - inconsistent_retry
+    - retry_without_idempotency
+    - duplicate_side_effect
+    - side_effect_missing
+    - side_effect_unexpected
+    - side_effect_ordering
+    - side_effect_race
+    - side_effect_conflict
+
+  spec_artifacts_keywords:
+    - product_requirement
+    - prd
+    - user_story
+    - epic
+    - acceptance_criteria
+    - definition_of_done
+    - definition_of_ready
+    - functional_spec
+    - technical_spec
+    - system_design
+    - architecture_doc
+    - rfc
+    - adr
+    - ui_spec
+    - ux_spec
+    - wireframe
+    - mockup
+    - prototype
+    - figma
+    - flow_diagram
+    - sequence_diagram
+    - state_diagram
+    - uml
+    - bpmn
+    - use_case
+    - user_journey
+    - workflow
+    - happy_path
+    - unhappy_path
+    - negative_path
+    - edge_case_catalog
+    - error_catalog
+    - validation_rules
+    - business_rules
+    - glossary
+    - domain_terms
+    - persona
+    - user_role
+    - permissions_matrix
+    - rbac_matrix
+    - api_contract
+    - openapi_spec
+    - swagger_spec
+    - graphql_contract
+    - protobuf_contract
+    - event_contract
+    - schema_registry
+
+  implementation_artifacts_keywords:
+    - controller
+    - handler
+    - service
+    - repository
+    - adapter
+    - client
+    - sdk
+    - middleware
+    - interceptor
+    - validator
+    - serializer
+    - deserializer
+    - mapper
+    - transformer
+    - reducer
+    - saga
+    - thunk
+    - job
+    - worker
+    - cron
+    - scheduler
+    - queue_consumer
+    - producer
+    - event_publisher
+    - event_handler
+    - state_machine
+    - feature_flag
+    - config
+    - env
+    - secret
+    - migration
+    - seed
+    - fixture
+    - mock_server
+    - contract_test
+    - e2e_test
+    - integration_test
+    - smoke_test
+    - load_test
+
+  agentic_system_keywords:
+    - agent
+    - agent_runner
+    - agent_loop
+    - tool_call
+    - function_call
+    - action
+    - plan
+    - planner
+    - executor
+    - reasoning
+    - chain_of_thought
+    - scratchpad
+    - memory
+    - long_term_memory
+    - short_term_memory
+    - context_window
+    - context_limit
+    - prompt
+    - system_prompt
+    - instruction
+    - policy
+    - guardrail
+    - safety
+    - sandbox
+    - tool_router
+    - tool_registry
+    - tool_schema
+    - observation
+    - reflection
+    - self_check
+    - verification
+    - grounding
+    - retrieval
+    - rag
+    - vector_store
+    - embeddings
+    - reranker
+    - chunking
+    - chunk_overlap
+    - citation
+    - source_attribution
+    - hallucination
+    - hallucination_risk
+    - prompt_injection
+    - jailbreak
+    - data_exfiltration
+    - tool_abuse
+    - rate_limit
+    - token_budget
+    - context_truncation
+    - retrieval_miss
+    - retrieval_noise
+    - rerank_failure
+    - tool_timeout
+    - tool_error
+    - tool_mismatch
+    - tool_unavailable
+    - agent_timeout
+    - agent_stuck
+    - infinite_loop
+    - repeated_action
+    - duplicate_tool_call
+    - non_idempotent_action
+    - unsafe_action
+    - irreversible_action
+    - confirmation_required
+    - human_in_the_loop
+
+  keywords_for_gap_queries:
+    # Use these as query seeds for semantic search
+    - "spec vs implementation"
+    - "requirement mismatch"
+    - "acceptance criteria missing"
+    - "outdated mock response"
+    - "frontend backend mismatch"
+    - "contract drift"
+    - "schema mismatch"
+    - "unexpected side effect"
+    - "infinite loading"
+    - "orphan state"
+    - "missing endpoint"
+    - "event not emitted"
+    - "idempotency missing"
+    - "retry without idempotency"
+    - "payment webhook missing"
+    - "double charge"
+    - "stale cache"
+    - "missing correlation id"
+    - "trace missing"
+    - "error swallowed"
+
+# End of file

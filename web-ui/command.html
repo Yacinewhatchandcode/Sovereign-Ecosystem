@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZIREM Command Center | Sovereign AI Orchestration</title>
+    <meta name="description" content="AZIREM Command Center - Unified dashboard for multi-agent orchestration">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Sovereign Core Assets -->
+    <link rel="stylesheet" href="/static/sovereign_core.css">
+    <script src="/static/sovereign_core.js" defer></script>
+
+    <style>
+        :root {
+            --bg-primary: #05050a;
+            --bg-secondary: #0a0a12;
+            --bg-tertiary: #0f0f18;
+            --bg-card: #12121c;
+            --text-primary: #e8e8f0;
+            --text-secondary: #9898a8;
+            --text-muted: #5a5a6e;
+            --accent-blue: #4f8fff;
+            --accent-purple: #9b4fff;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff9d;
+            --accent-yellow: #ffd700;
+            --accent-red: #ff4f6f;
+            --accent-orange: #ff8f4f;
+            --border-color: #1e1e30;
+            --gradient-primary: linear-gradient(135deg, #4f8fff 0%, #9b4fff 100%);
+            --gradient-cold: linear-gradient(135deg, #00d4ff 0%, #4f8fff 100%);
+            --gradient-warm: linear-gradient(135deg, #ff8f4f 0%, #ff4f6f 100%);
+            --glow-blue: 0 0 20px rgba(79, 143, 255, 0.3);
+            --glow-purple: 0 0 20px rgba(155, 79, 255, 0.3);
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
+            padding: 1.25rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: var(--glow-blue);
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-tab {
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .nav-tab:hover {
+            background: rgba(79, 143, 255, 0.1);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .nav-tab.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--accent-green);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Left Sidebar */
+        .sidebar-left {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* Master Agent Cards */
+        .master-agent {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .master-agent:hover {
+            border-color: var(--accent-purple);
+            box-shadow: var(--glow-purple);
+        }
+
+        .master-agent.active {
+            background: rgba(155, 79, 255, 0.1);
+            border-color: var(--accent-purple);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .agent-icon.azirem {
+            background: var(--gradient-primary);
+        }
+
+        .agent-icon.bumblebee {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8f4f 100%);
+        }
+
+        .agent-icon.spectra {
+            background: linear-gradient(135deg, #ff4f6f 0%, #9b4fff 100%);
+        }
+
+        .agent-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .agent-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .agent-stats {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .agent-stat {
+            color: var(--text-secondary);
+        }
+
+        /* Center Content */
+        .center {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .command-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .command-input {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--font-sans);
+        }
+
+        .command-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(79, 143, 255, 0.1);
+        }
+
+        .command-btn {
+            padding: 0 2rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .command-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-blue);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value.blue {
+            color: var(--accent-blue);
+        }
+
+        .stat-value.purple {
+            color: var(--accent-purple);
+        }
+
+        .stat-value.cyan {
+            color: var(--accent-cyan);
+        }
+
+        .stat-value.green {
+            color: var(--accent-green);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Panels */
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-header {
+            padding: 1rem 1.25rem;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-title {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-body {
+            padding: 1rem 1.25rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Topic Pills */
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .topic {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .topic:hover {
+            background: rgba(79, 143, 255, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        /* Right Sidebar */
+        .sidebar-right {
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 0.85rem;
+        }
+
+        .activity-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Entity List */
+        .entity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .entity-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .entity-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background: var(--accent-purple);
+            border-radius: 4px;
+        }
+
+        .entity-tag.tech {
+            background: var(--accent-blue);
+        }
+
+        .entity-tag.project {
+            background: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main {
+                grid-template-columns: 240px 1fr;
+            }
+
+            .sidebar-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-left {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🌌</div>
+            <div>
+                <div class="logo-text"><span>AZIREM</span> Command</div>
+                <div class="logo-subtitle">Sovereign AI Orchestration</div>
+            </div>
+        </div>
+        <nav class="nav-tabs">
+            <a href="index.html" class="nav-tab">📊 Matrix</a>
+            <a href="knowledge.html" class="nav-tab">🧠 Knowledge</a>
+            <a href="command.html" class="nav-tab active">⚡ Command</a>
+        </nav>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span id="status-text">Online</span>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Left Sidebar: Agent Hierarchy -->
+        <aside class="sidebar-left">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Master Agents</div>
+
+                <div class="master-agent active" onclick="selectAgent('AZIREM')">
+                    <div class="agent-header">
+                        <div class="agent-icon azirem">🤖</div>
+                        <div>
+                            <div class="agent-name">AZIREM</div>
+                            <div class="agent-role">Master Coding Orchestrator</div>
+                        </div>
+                    </div>
+                    <div class="agent-stats">
+                        <span class="agent-stat">📝 6 sub-agents</span>
+                        <span class="agent-stat">⚡ qwen2.5:14b</span>
+                    </div>
+                </div>
+
+                <div class="master-agent" onclick="selectAgent('BumbleBee')">
+                    <div class="agent-header">
+                        <div class="agent-icon bumblebee">🐝</div>
+                        <div>
+                            <div class="agent-name">BumbleBee</div>
+                            <div class="agent-role">Research & Documents</div>
+                        </div>
+                    </div>
+                    <div class="agent-stats">
+                        <span class="agent-stat">📝 3 sub-agents</span>
+                        <span class="agent-stat">⚡ qwen2.5:14b</span>
+                    </div>
+                </div>
+
+                <div class="master-agent" onclick="selectAgent('Spectra')">
+                    <div class="agent-header">
+                        <div class="agent-icon spectra">🎨</div>
+                        <div>
+                            <div class="agent-name">Spectra</div>
+                            <div class="agent-role">Design Intelligence</div>
+                        </div>
+                    </div>
+                    <div class="agent-stats">
+                        <span class="agent-stat">📝 3 sub-agents</span>
+                        <span class="agent-stat">⚡ qwen2.5:14b</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Pipeline Agents</div>
+                <div id="pipeline-agents"></div>
+            </div>
+        </aside>
+
+        <!-- Center: Main Content -->
+        <section class="center">
+            <div class="command-bar">
+                <input type="text" class="command-input" id="command-input"
+                    system_value="Enter a task... (e.g., 'Build a REST API', 'Design a dashboard')">
+                <button class="command-btn" onclick="executeCommand()">⚡ Execute</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value blue" id="doc-count">3,831</div>
+                    <div class="stat-label">Documents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value purple" id="agent-count">12</div>
+                    <div class="stat-label">Active Agents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value cyan" id="entity-count">13,855</div>
+                    <div class="stat-label">Entities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value green" id="project-count">46</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">📁 Topic Clusters</div>
+                </div>
+                <div class="panel-body">
+                    <div class="topics" id="topics"></div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">🏷️ Top Entities</div>
+                </div>
+                <div class="panel-body">
+                    <div class="entity-list" id="entities"></div>
+                </div>
+            </div>
+
+            <div class="panel" id="output-panel" style="display: none;">
+                <div class="panel-header">
+                    <div class="panel-title">⚡ Execution Output</div>
+                </div>
+                <div class="panel-body" id="output"></div>
+            </div>
+        </section>
+
+        <!-- Right Sidebar: Activity -->
+        <aside class="sidebar-right">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Recent Activity</div>
+                <div id="activity">
+                    <div class="activity-item">
+                        <div class="activity-icon">📄</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Full system scan completed</div>
+                            <div class="activity-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">🧠</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Knowledge graph built</div>
+                            <div class="activity-time">2 min ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">🔍</div>
+                        <div class="activity-content">
+                            <div class="activity-text">RAG engine indexed</div>
+                            <div class="activity-time">5 min ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">MCP Tools</div>
+                <div id="mcp-tools">
+                    <div class="entity-item">
+                        <span>🔗 GitHub</span>
+                        <span class="entity-tag tech">Connected</span>
+                    </div>
+                    <div class="entity-item">
+                        <span>🗄️ Supabase</span>
+                        <span class="entity-tag tech">Connected</span>
+                    </div>
+                    <div class="entity-item">
+                        <span>🔍 Perplexity</span>
+                        <span class="entity-tag tech">Ready</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        const API_BASE = 'http://localhost:8081/api';
+
+        const topicColors = {
+            "AI Agents": "#9b4fff",
+            "Voice & Audio": "#ff8f4f",
+            "Video Generation": "#ff4f6f",
+            "Infrastructure": "#4f8fff",
+            "UI/UX": "#00d4ff",
+            "Security": "#ffd700",
+            "Documentation": "#00ff9d",
+        };
+
+        async function loadData() {
+            try {
+                // Load knowledge graph
+                const kgRes = await fetch(`${API_BASE}/knowledge`);
+                const kg = await kgRes.json();
+
+                // Topics
+                const topicsEl = document.getElementById('topics');
+                topicsEl.innerHTML = '';
+                for (const [name, topic] of Object.entries(kg.topics || {}).slice(0, 10)) {
+                    const color = topicColors[name] || '#4f8fff';
+                    topicsEl.innerHTML += `
+                        <div class="topic" style="border-color: ${color}; color: ${color};"
+                             onclick="searchTopic('${name}')">
+                            ${name} (${topic.file_count})
+                        </div>
+                    `;
+                }
+
+                // Entities
+                const entitiesEl = document.getElementById('entities');
+                entitiesEl.innerHTML = '';
+                const entities = Object.entries(kg.entities || {}).slice(0, 10);
+                for (const [name, entity] of entities) {
+                    const tagClass = entity.type === 'technology' ? 'tech' : 'project';
+                    entitiesEl.innerHTML += `
+                        <div class="entity-item">
+                            <span>${name}</span>
+                            <span class="entity-tag ${tagClass}">${entity.mentions}x</span>
+                        </div>
+                    `;
+                }
+
+                // Pipeline agents
+                const pipelineEl = document.getElementById('pipeline-agents');
+                pipelineEl.innerHTML = `
+                    <div class="entity-item"><span>🔍 Scanner</span></div>
+                    <div class="entity-item"><span>🏷️ Classifier</span></div>
+                    <div class="entity-item"><span>📦 Extractor</span></div>
+                    <div class="entity-item"><span>🔗 DepResolver</span></div>
+                    <div class="entity-item"><span>🔐 Secrets</span></div>
+                    <div class="entity-item"><span>📝 Summarizer</span></div>
+                `;
+
+            } catch (e) {
+                console.error('Failed to load data:', e);
+            }
+        }
+
+        function selectAgent(name) {
+            document.querySelectorAll('.master-agent').forEach(el => {
+                el.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function searchTopic(topic) {
+            document.getElementById('command-input').value = `Research: ${topic}`;
+            executeCommand();
+        }
+
+        async function executeCommand() {
+            const input = document.getElementById('command-input').value;
+            if (!input) return;
+
+            const outputPanel = document.getElementById('output-panel');
+            const output = document.getElementById('output');
+
+            outputPanel.style.display = 'block';
+            output.innerHTML = `<div style="color: var(--text-muted);">⏳ Routing task...</div>`;
+
+            // Simulate routing
+            let master = 'AZIREM';
+            if (input.toLowerCase().includes('research')) master = 'BumbleBee';
+            if (input.toLowerCase().includes('design')) master = 'Spectra';
+
+            setTimeout(() => {
+                output.innerHTML = `
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Task:</strong> ${input}
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Routed to:</strong> 
+                        <span style="color: var(--accent-purple);">${master}</span>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Execution Plan:</strong>
+                        <ol style="margin-top: 0.5rem; padding-left: 1.5rem; color: var(--text-secondary);">
+                            <li>Analyze and decompose task</li>
+                            <li>Delegate to sub-agents</li>
+                            <li>Execute in parallel</li>
+                            <li>Synthesize results</li>
+                        </ol>
+                    </div>
+                    <div style="color: var(--accent-green);">
+                        ✅ Plan created. Connect to Ollama for real execution.
+                    </div>
+                `;
+
+                // Add to activity
+                const activity = document.getElementById('activity');
+                activity.innerHTML = `
+                    <div class="activity-item">
+                        <div class="activity-icon">⚡</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Task routed to ${master}</div>
+                            <div class="activity-time">Just now</div>
+                        </div>
+                    </div>
+                ` + activity.innerHTML;
+            }, 500);
+        }
+
+        document.getElementById('command-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') executeCommand();
+        });
+
+        loadData();
+    </script>
+</body>
+
+</html>

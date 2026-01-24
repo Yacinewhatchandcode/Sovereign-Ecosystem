@@ -1,0 +1,712 @@
+# Exhaustive keywords and metadata for semantic scanning (English)
+# Generated for repo-wide, multi-repo, multi-language, end-to-end flow gap detection.
+version: 1.0
+generated_by: ChatGPT
+description: |
+  Large, structured set of keywords, metadata fields, regex signatures, heuristics and exclusions
+  optimized to detect contract gaps, mock incoherence, front-end/back-end workflow breaks,
+  E2E inconsistencies and repository coverage gaps.
+categories:
+  programming_languages:
+    - python
+    - javascript
+    - typescript
+    - java
+    - csharp
+    - cpp
+    - c
+    - go
+    - rust
+    - ruby
+    - php
+    - swift
+    - kotlin
+    - scala
+    - r
+    - perl
+    - haskell
+    - elixir
+    - erlang
+    - dart
+    - lua
+    - matlab
+  frameworks_and_libraries:
+    - react
+    - react-native
+    - nextjs
+    - gatsby
+    - angular
+    - vue
+    - svelte
+    - nuxt
+    - ember
+    - backbone
+    - redux
+    - mobx
+    - vuex
+    - rxjs
+    - jquery
+    - bootstrap
+    - tailwind
+    - material-ui
+    - chakra-ui
+    - antd
+    - semantic-ui
+    - vite
+    - webpack
+    - parcel
+    - rollup
+    - babel
+    - typescript-compiler
+    - ts-node
+    - express
+    - fastify
+    - nestjs
+    - koa
+    - hapi
+    - django
+    - flask
+    - fastapi
+    - spring
+    - spring-boot
+    - quarkus
+    - micronaut
+    - rails
+    - sinatra
+    - laravel
+    - symfony
+    - dotnet
+    - aspnet
+    - aspnet-core
+    - akka
+    - play
+    - grails
+    - gin
+    - echo
+    - phoenix
+  databases_and_storage:
+    - postgresql
+    - mysql
+    - mariadb
+    - sqlite
+    - mongodb
+    - cassandra
+    - dynamodb
+    - redis
+    - memcached
+    - elasticsearch
+    - opensearch
+    - cockroachdb
+    - timescaledb
+    - influxdb
+    - bigquery
+    - snowflake
+    - redshift
+    - hive
+    - hadoop
+    - parquet
+    - orc
+    - avro
+    - blob-storage
+    - s3
+    - gcs
+    - azure-blob
+  messaging_and_streaming:
+    - kafka
+    - rabbitmq
+    - pulsar
+    - nats
+    - activemq
+    - stomp
+    - mqtt
+    - sqs
+    - sns
+    - google-pubsub
+    - eventbridge
+    - kafka-connect
+    - kafka-streams
+    - kinesis
+    - flink
+    - beam
+  ci_cd_and_build:
+    - github-actions
+    - gitlab-ci
+    - jenkins
+    - travis-ci
+    - circleci
+    - buildkite
+    - argo-cd
+    - tekton
+    - spinnaker
+    - bamboo
+    - azure-pipelines
+    - bitbucket-pipelines
+    - docker
+    - docker-compose
+    - podman
+    - build
+    - release
+    - artifact
+    - nexus
+    - artifactory
+    - goreleaser
+    - bazel
+    - maven
+    - gradle
+    - sbt
+    - cmake
+    - makefile
+  cloud_and_infrastructure:
+    - aws
+    - azure
+    - gcp
+    - cloudformation
+    - terraform
+    - pulumi
+    - nomad
+    - consul
+    - kubernetes
+    - k8s
+    - eks
+    - aks
+    - gke
+    - kubectl
+    - helm
+    - helmfile
+    - istio
+    - envoy
+    - linkerd
+    - contour
+    - traefik
+    - kong
+    - ambassador
+    - openfaas
+    - serverless
+    - lambda
+    - faas
+    - cloud-run
+    - app-engine
+    - ec2
+    - ecs
+    - fargate
+    - ecr
+    - acr
+    - gcr
+  security_and_compliance:
+    - oauth
+    - oauth2
+    - openid
+    - oidc
+    - saml
+    - jwt
+    - x509
+    - tls
+    - mtls
+    - hmac
+    - rsa
+    - ecdsa
+    - ed25519
+    - argon2
+    - bcrypt
+    - scrypt
+    - pbkdf2
+    - encryption
+    - key-rotation
+    - kms
+    - vault
+    - sops
+    - sigstore
+    - sbom
+    - cyclonedx
+    - spdx
+    - sast
+    - dast
+    - pentest
+    - cve
+    - cwe
+    - gdpr
+    - hipaa
+    - pci-dss
+    - iso27001
+  testing_and_quality:
+    - unit-test
+    - integration-test
+    - end-to-end
+    - e2e
+    - contract-test
+    - component-test
+    - smoke-test
+    - regression-test
+    - performance-test
+    - load-test
+    - stress-test
+    - chaos-test
+    - mutation-test
+    - flaky-test
+    - test-fixture
+    - mock
+    - stub
+    - spy
+    - test-runner
+    - pytest
+    - jest
+    - mocha
+    - jasmine
+    - karma
+    - cypress
+    - playwright
+    - selenium
+    - junit
+    - testng
+    - tox
+    - robotframework
+  observability_and_monitoring:
+    - prometheus
+    - grafana
+    - datadog
+    - newrelic
+    - honeycomb
+    - instana
+    - jaeger
+    - zipkin
+    - opentelemetry
+    - tracing
+    - metrics
+    - logs
+    - alert
+    - pagerduty
+    - opsgenie
+    - sentry
+    - elastic-apm
+    - tracing-id
+  api_and_contracts:
+    - openapi
+    - openapi3
+    - swagger
+    - graphql
+    - graphql-schema
+    - grpc
+    - protobuf
+    - rpc
+    - rest
+    - soap
+    - rpc
+    - asyncapi
+    - api-gateway
+    - api-spec
+    - contract
+    - contract-version
+  frontend_ui_and_ux:
+    - accessibility
+    - a11y
+    - aria
+    - keyboard-navigation
+    - screen-reader
+    - focus-trap
+    - hydration
+    - ssr
+    - ssg
+    - csr
+    - pwa
+    - service-worker
+    - offline
+    - responsive
+    - viewport
+    - core-web-vitals
+    - lighthouse
+    - bundle-size
+    - code-splitting
+    - tree-shaking
+  performance_and_reliability:
+    - latency
+    - ttfb
+    - tti
+    - fcp
+    - lcp
+    - cls
+    - p95
+    - p99
+    - throughput
+    - concurrency
+    - saturation
+    - backpressure
+    - retry
+    - circuit-breaker
+    - bulkhead
+    - rate-limit
+    - throttling
+    - cache
+    - cache-invalidation
+  design_and_architecture:
+    - microservices
+    - monolith
+    - hexagonal-architecture
+    - clean-architecture
+    - ddd
+    - domain-driven-design
+    - bounded-context
+    - cqrs
+    - saga
+    - outbox-pattern
+    - event-driven
+    - pubsub
+    - event-sourcing
+    - eventual-consistency
+    - strong-consistency
+    - sharding
+    - partitioning
+  repo_and_devprocess:
+    - monorepo
+    - polyrepo
+    - gitflow
+    - trunk-based
+    - conventional-commits
+    - semantic-versioning
+    - changelog
+    - release-note
+    - codeowners
+    - contributing
+    - readme
+    - license
+    - ci-pipeline
+    - code-review
+    - approval-rule
+    - adr
+  file_types_and_manifests:
+    - Dockerfile
+    - README.md
+    - LICENSE
+    - CHANGELOG.md
+    - CONTRIBUTING.md
+    - CODE_OF_CONDUCT.md
+    - SECURITY.md
+    - package.json
+    - package-lock.json
+    - yarn.lock
+    - pnpm-lock.yaml
+    - Pipfile
+    - Pipfile.lock
+    - requirements.txt
+    - pyproject.toml
+    - pom.xml
+    - build.gradle
+    - build.gradle.kts
+    - go.mod
+    - go.sum
+    - Gemfile
+    - composer.json
+    - tsconfig.json
+    - .env
+    - .gitignore
+    - .dockerignore
+    - .helmignore
+  metrics_and_business:
+    - conversion-rate
+    - abandonment-rate
+    - retention
+    - churn
+    - activation
+    - mrr
+    - arpu
+    - nps
+    - sla
+    - slo
+    - rto
+    - rpo
+  misc:
+    - localization
+    - internationalization
+    - i18n
+    - l10n
+    - timezone
+    - telemetry
+    - correlation-id
+    - request-id
+    - feature-flag
+    - experiment
+    - a-b-test
+
+# Compact metadata schema to attach to each indexed chunk
+metadata_schema:
+  - name: component
+    type: keyword
+    examples: ["checkout", "search", "auth", "cart", "profile"]
+  - name: layer
+    type: keyword
+    examples: ["frontend", "backend", "api-gateway", "worker", "db"]
+  - name: flow_stage
+    type: keyword
+    examples: ["init", "submit", "confirm", "settle", "notify"]
+  - name: artifact_type
+    type: keyword
+    examples: ["api_spec", "mock", "test", "doc", "script"]
+  - name: contract_version
+    type: string
+    examples: ["v1", "v2", "2025-01-01"]
+  - name: severity
+    type: keyword
+    examples: ["critical", "major", "minor", "info"]
+  - name: detected_by
+    type: keyword
+    examples: ["semantic-scan", "static-scan", "runtime-trace", "manual"]
+  - name: sample
+    type: text
+    examples: ["snippet or log line showing the issue"]
+  - name: path
+    type: string
+    examples: ["/repos/projectA/src/checkout/handler.py"]
+  - name: last_seen
+    type: date
+    examples: ["2026-01-21"]
+
+# Regex signatures and token patterns useful for detection
+regex_signatures:
+  api_endpoints: 
+    - pattern: "(?i)\\b(GET|POST|PUT|PATCH|DELETE)\\s+/(api|v[0-9]+)/[\\w\-/.]+\b"
+  http_status_codes:
+    - pattern: "\\bHTTP/1\\.[01]\\s+(400|401|403|404|409|500|502|503|504)\\b"
+  jwt_pattern:
+    - pattern: "[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+"
+  bearer_auth:
+    - pattern: "(?i)Authorization:\\s*Bearer\\s+[A-Za-z0-9\-_.]+"
+  semantic_placeholder:
+    - pattern: "\\b(TODO|FIXME|HACK|XXX|REVIEW|BUG)\\b"
+  mock_call:
+    - pattern: "(?i)(mock|stub|fixture|fake|recorded_response|nock|msw|wiremock)"
+  schema_file:
+    - pattern: "(?i)(openapi|swagger|graphql|schema\.json|schema\.yaml|proto3|proto)"
+  sql_dml:
+    - pattern: "(?i)\\b(select|insert|update|delete)\\b"
+
+# Heuristics (rules) for flagging gaps and incoherence
+heuristics:
+  - id: H1
+    name: contract_mismatch
+    description: |
+      When an API spec (openapi/swagger/protobuf/graphql) lists a response field that
+      is not referenced or consumed by frontend components (JS/TS/React templates/GraphQL queries),
+      flag as possible backend-frontend contract gap.
+    detection:
+      - requires: ["api_spec", "frontend_code_chunks"]
+      - trigger: "schema_field_missing_in_frontend"
+  - id: H2
+    name: stale_mock
+    description: |
+      When recorded/mock responses are older than contract_version or contain fields
+      not present in current api_spec, flag mock_out_of_date and increase severity.
+    detection:
+      - requires: ["mock_files", "api_spec", "contract_version"]
+      - trigger: "mock_fields_mismatch"
+  - id: H3
+    name: orphan_ui_state
+    description: |
+      When UI logs or frontend code reference states or steps (e.g., onboarding_step_x)
+      that have no backend event/endpoint or DB state, flag missing_step/orphan_state.
+    detection:
+      - requires: ["frontend_logs", "backend_endpoints", "db_schema"]
+  - id: H4
+    name: inconsistent_auth
+    description: |
+      If frontend calls include authentication headers or tokens but server-side
+      routes are public or vice versa (server expects auth but frontend doesn't send),
+      flag session_mismatch/insufficient_scope.
+    detection:
+      - requires: ["frontend_requests", "server_route_metadata"]
+  - id: H5
+    name: unrealistic_mock_latency
+    description: |
+      When mock servers respond with near-zero latency for endpoints that are slow in production,
+      flag mock_latency_unrealistic to detect false positive test passes.
+    detection:
+      - requires: ["mock_configs", "production_traces"]
+  - id: H6
+    name: incomplete_e2e_coverage
+    description: |
+      If an E2E test suite exists but key business flows (purchase, signup) have no passing
+      end-to-end test or test artifacts show skipped steps, flag incomplete_checkout or onboarding_blocker.
+    detection:
+      - requires: ["e2e_tests", "business_flow_list"]
+
+# Detection scoring and priority weights
+scoring:
+  severity_weights:
+    critical: 100
+    major: 50
+    minor: 10
+    info: 1
+  token_overlap_threshold: 0.78  # similarity threshold for strong match
+  partial_overlap_threshold: 0.45
+  missing_field_penalty: 20
+  mock_mismatch_penalty: 30
+  contract_version_delta_penalty: 40
+
+# Exclusion / anti-omission rules (what to ignore)
+exclusions:
+  directories:
+    - .git
+    - node_modules
+    - bower_components
+    - dist
+    - build
+    - out
+    - target
+    - bin
+    - obj
+    - coverage
+    - .pytest_cache
+    - .mypy_cache
+    - .ruff_cache
+    - .venv
+    - venv
+    - __pycache__
+    - .cache
+    - tmp
+    - temp
+    - logs
+    - .idea
+    - .vscode
+    - .DS_Store
+    - vendor
+    - third_party
+  file_patterns:
+    - "*.min.js"
+    - "*.min.css"
+    - "*.map"
+    - "*.log"
+    - "*.bak"
+    - "*.tmp"
+    - "*.swp"
+    - "*.iml"
+  binaries:
+    - "*.exe"
+    - "*.dll"
+    - "*.so"
+    - "*.dylib"
+    - "*.jar"
+    - "*.war"
+    - "*.class"
+    - "*.zip"
+    - "*.tar"
+    - "*.gz"
+    - "*.7z"
+  media:
+    - "*.png"
+    - "*.jpg"
+    - "*.jpeg"
+    - "*.gif"
+    - "*.webp"
+    - "*.mp4"
+    - "*.mov"
+    - "*.mp3"
+  large_datasets:
+    - "*.csv"
+    - "*.parquet"
+    - "*.orc"
+    - "*.avro"
+    - "*.db"
+    - "*.sqlite"
+
+# File extensions to prioritize for indexing
+index_priorities:
+  highest:
+    - md
+    - rst
+    - adoc
+    - yaml
+    - yml
+    - json
+    - proto
+    - graphql
+    - py
+    - js
+    - ts
+    - java
+    - kt
+    - go
+    - rs
+    - cs
+    - sql
+  high:
+    - Dockerfile
+    - dockerfile
+    - tf
+    - hcl
+    - sh
+    - bash
+    - ps1
+    - gradle
+    - kts
+    - pom.xml
+
+# Example detection rules (pseudocode)
+detection_rules:
+  - id: R1
+    name: detect_missing_response_field
+    match:
+      - find_in: api_spec
+        pattern: "properties"
+      - not_find_in: frontend_code
+        pattern: "property_name"
+    action: tag_as: ["contract_gap","severity:major"]
+  - id: R2
+    name: detect_mock_stale_by_contract
+    match:
+      - find_in: mock_files
+        pattern: "recorded_response"
+      - find_in: api_spec
+        pattern: "response.properties"
+      - condition: "mock_fields \u2260 spec_fields"
+    action: tag_as: ["mock_out_of_date","severity:critical"]
+  - id: R3
+    name: detect_orphan_ui_state
+    match:
+      - find_in: frontend_logs
+        pattern: "onboarding_step_"
+      - not_find_in: backend_events
+        pattern: "onboarding_step_"
+    action: tag_as: ["orphan_state","severity:major"]
+
+# Recommended ingestion hints
+ingestion:
+  - read_all_text_files_with_encoding_detection: true
+  - chunk_strategy:
+      type: sliding_window
+      chunk_size_chars: 1200
+      overlap_chars: 200
+  - preserve_metadata: [path, repo, branch, commit_sha, author, last_modified]
+  - detect_language_per_chunk: true
+  - compute_embeddings_model: choose_code_aware_if_available
+  - store_vector_metadata: include(metadata_schema)
+
+# Sample mapping of compact keys (for lightweight matching)
+compact_keys_map:
+  ui_actions:
+    - click
+    - submit
+    - navigate
+    - open
+    - close
+    - select
+  ui_states:
+    - loading
+    - success
+    - error
+    - empty
+    - partial
+    - offline
+  api_contract:
+    - req_schema
+    - resp_schema
+    - enum_mismatch
+    - type_mismatch
+
+# Example sample records (for testing ingestion)
+samples:
+  - id: S1
+    sample_text: "POST /api/v1/checkout -> 500 Internal Server Error, trace-id: abc123"
+    expected_tags: ["api_error","server_5xx","trace-id"]
+  - id: S2
+    sample_text: "Mock file contains 'total_price' but openapi.yaml no longer lists 'total_price' in responses"
+    expected_tags: ["mock_out_of_date","contract_gap"]
+
+# End of file

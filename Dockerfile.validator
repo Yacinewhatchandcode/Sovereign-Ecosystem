@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir aiohttp
+
+# Copy validation node
+COPY sovereign-dashboard/validation_node.py .
+
+# Create reports directory
+RUN mkdir -p /reports
+
+EXPOSE 4100
+
+CMD ["python3", "-u", "validation_node.py", "--port", "4100"]

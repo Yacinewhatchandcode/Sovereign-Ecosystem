@@ -1,0 +1,13 @@
+{
+  "snapshot_id": "snapshot-20260120-075007",
+  "timestamp": "2026-01-20T07:50:35.534615",
+  "blockers": [],
+  "validated": true,
+  "summary": {
+    "total_blockers": 0,
+    "dom_mocks": 0,
+    "api_mocks": 0,
+    "file_mocks": 0,
+    "unmapped": 0
+  }
+}

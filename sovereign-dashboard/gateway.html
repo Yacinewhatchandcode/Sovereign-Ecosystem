@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aSiReM Sovereign Ecosystem - Gateway</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Neon Color System */
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-green: #00ff00;
+            --neon-blue: #0080ff;
+            --neon-purple: #8000ff;
+
+            /* Glassmorphism */
+            --glass-bg: rgba(15, 15, 35, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(0, 255, 255, 0.2);
+
+            /* Typography */
+            --font-header: 'Orbitron', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+            color: #ffffff;
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Cinematic Background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(128, 0, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Animated Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 30s linear infinite;
+        }
+
+        @keyframes gridScroll {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: var(--font-header);
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: 0.1em;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Voice Button */
+        .voice-container {
+            margin-bottom: var(--spacing-xl);
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 10px var(--neon-cyan));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 30px var(--neon-cyan));
+            }
+        }
+
+        .voice-button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(128, 0, 255, 0.2));
+            border: 2px solid var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .voice-button:hover {
+            transform: scale(1.1);
+            border-color: var(--neon-magenta);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+
+        .voice-button:active {
+            transform: scale(0.95);
+        }
+
+        .voice-button.listening {
+            animation: listening 1s ease-in-out infinite;
+            border-color: var(--neon-green);
+        }
+
+        @keyframes listening {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px var(--neon-green);
+            }
+
+            50% {
+                box-shadow: 0 0 60px var(--neon-green);
+            }
+        }
+
+        .voice-icon {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+        }
+
+        .voice-hint {
+            margin-top: var(--spacing-sm);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        /* Journey Cards */
+        .journey-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1200px;
+            width: 100%;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .journey-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: cardSlideUp 0.6s ease-out backwards;
+        }
+
+        .journey-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .journey-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .journey-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes cardSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .journey-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(0, 255, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 20px 60px var(--glass-shadow);
+        }
+
+        .journey-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .card-title {
+            font-family: var(--font-header);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, #ffffff, var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .card-features {
+            list-style: none;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .card-features li {
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card-features li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--neon-cyan);
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(0, 255, 255, 0.1);
+            border-top-color: var(--neon-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <!-- Inject Sovereign Core JS/CSS -->
+    <script src="/sovereign_core.js" defer></script>
+    <link rel="stylesheet" href="/sovereign_core.css">
+</head>
+
+<body>
+    <!-- Background Layers -->
+    <div class="background"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">aSiReM</h1>
+            <p class="tagline">Sovereign Intelligence Ecosystem v14.0</p>
+        </header>
+
+        <!-- Voice Interface -->
+        <div class="voice-container">
+            <button class="voice-button" id="voiceButton" aria-label="Activate voice commands">
+                <span class="voice-icon">🎙️</span>
+            </button>
+            <p class="voice-hint">Click to speak or choose a journey below</p>
+        </div>
+
+        <!-- Journey Cards -->
+        <div class="journey-cards">
+            <!-- Discovery Card -->
+            <div class="journey-card" data-journey="discovery" data-target="/discovery">
+                <span class="card-icon">🔍</span>
+                <h2 class="card-title">Discovery</h2>
+                <p class="card-description">
+                    Understand your codebase through intelligent scanning and pattern extraction
+                </p>
+                <ul class="card-features">
+                    <li>Real-time codebase scanning</li>
+                    <li>Pattern classification</li>
+                    <li>Knowledge graph visualization</li>
+                    <li>Security vulnerability detection</li>
+                </ul>
+            </div>
+
+            <!-- Architecture Card -->
+            <div class="journey-card" data-journey="architecture" data-target="/dashboard">
+                <span class="card-icon">🏗️</span>
+                <h2 class="card-title">Architecture</h2>
+                <p class="card-description">
+                    Design solutions with AI-powered architectural blueprints and recommendations
+                </p>
+                <ul class="card-features">
+                    <li>ZenArchitect AI analysis</li>
+                    <li>Blueprint generation</li>
+                    <li>Improvement suggestions</li>
+                    <li>Multi-agent orchestration</li>
+                </ul>
+            </div>
+
+            <!-- Actuation Card -->
+            <div class="journey-card" data-journey="actuation" data-target="/actuation">
+                <span class="card-icon">⚡</span>
+                <h2 class="card-title">Actuation</h2>
+                <p class="card-description">
+                    Execute plans with physical desktop automation and visual verification
+                </p>
+                <ul class="card-features">
+                    <li>ByteBot desktop control</li>
+                    <li>Voice-to-action commands</li>
+                    <li>Gesture-based interaction</li>
+                    <li>Real-time visual feedback</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // WebSocket logic is now handled by sovereign_core.js
+        // We only keep page-specific interactions here
+
+        // Voice Button & High-Fidelity S2S
+        const voiceButton = document.getElementById('voiceButton');
+        let isListening = false;
+        let mediaRecorder = null;
+        let audioChunks = [];
+
+        voiceButton.addEventListener('click', toggleVoiceInteraction);
+
+        async function toggleVoiceInteraction() {
+            isListening = !isListening;
+            voiceButton.classList.toggle('listening', isListening);
+
+            if (isListening) {
+                await startRecording();
+                updateVoiceHint("Listening... (Speak now)");
+            } else {
+                await stopRecording();
+                updateVoiceHint("Processing...");
+            }
+        }
+
+        function updateVoiceHint(text) {
+            const hint = document.querySelector('.voice-hint');
+            if (hint) hint.textContent = text;
+        }
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    await sendAudioToBackend(audioBlob);
+                };
+
+                mediaRecorder.start();
+                console.log("🎙️ Recording started");
+            } catch (err) {
+                console.error("Error accessing microphone:", err);
+                updateVoiceHint("Microphone access denied");
+                isListening = false;
+                voiceButton.classList.remove('listening');
+            }
+        }
+
+        function stopRecording() {
+            return new Promise((resolve) => {
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                    resolve();
+                } else {
+                    resolve();
+                }
+            });
+        }
+
+        async function sendAudioToBackend(audioBlob) {
+            // Check WebSocket status first
+            const statusText = document.getElementById('statusText');
+            if (statusText && statusText.textContent.includes("Connecting")) {
+                updateVoiceHint("System offline. Please wait.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('audio', audioBlob);
+
+            try {
+                updateVoiceHint("Thinking...");
+                console.log("📤 Sending audio " + audioBlob.size + " bytes to /api/podcast/audio");
+
+                const response = await fetch('/api/podcast/audio', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log("📥 S2S Response:", data);
+
+                if (data.status === "success") {
+                    updateVoiceHint(`Res: "${data.ai_text.substring(0, 30)}..."`);
+
+                    // Handle Navigation Commands if detected in text
+                    if (handleVoiceCommandText(data.user_text)) {
+                        return;
+                    }
+
+                    // Play Audio Response
+                    if (data.audio_base64) {
+                        playAudioResponse(data.audio_base64);
+                    }
+                } else {
+                    updateVoiceHint("Error: " + (data.error || "Unknown"));
+                }
+            } catch (error) {
+                console.error("S2S Error:", error);
+                updateVoiceHint("Connection Error");
+            }
+        }
+
+        function playAudioResponse(base64Audio) {
+            try {
+                const audio = new Audio("data:audio/wav;base64," + base64Audio);
+                audio.play();
+                audio.onended = () => {
+                    updateVoiceHint("Click to speak or choose a journey below");
+                };
+            } catch (e) {
+                console.error("Audio playback failed:", e);
+            }
+        }
+
+        function handleVoiceCommandText(text) {
+            if (!text) return false;
+            const command = text.toLowerCase();
+
+            // Map voice commands to journeys
+            if (command.includes('discover') || command.includes('scan') || command.includes('analyze')) {
+                navigateToJourney('discovery');
+                return true;
+            } else if (command.includes('architect') || command.includes('design') || command.includes('blueprint')) {
+                navigateToJourney('architecture');
+                return true;
+            } else if (command.includes('execute') || command.includes('deploy') || command.includes('run') || command.includes('actuation')) {
+                navigateToJourney('actuation');
+                return true;
+            }
+            return false;
+        }
+
+        // Journey Card Navigation
+        const journeyCards = document.querySelectorAll('.journey-card');
+
+        journeyCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const journey = card.dataset.journey;
+                const target = card.dataset.target;
+                navigateToJourney(journey, target);
+            });
+
+            // Add keyboard accessibility
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+
+        function navigateToJourney(journey, target) {
+            console.log(`Navigating to ${journey} journey`);
+
+            // Show loading
+            const loading = document.getElementById('loading');
+            loading.classList.add('active');
+
+            // Store journey preference
+            localStorage.setItem('lastJourney', journey);
+
+            // Navigate after animation
+            setTimeout(() => {
+                if (target) {
+                    window.location.href = target;
+                } else {
+                    window.location.href = '/index.html';
+                }
+            }, 500);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 aSiReM Gateway initialized');
+
+            // Connect to WebSocket
+            // connectWebSocket(); - Handled by sovereign_core.js
+
+            // Check for returning users
+            const lastJourney = localStorage.getItem('lastJourney');
+            if (lastJourney) {
+                console.log(`Welcome back! Last journey: ${lastJourney}`);
+            }
+        });
+    </script>
+</body>
+
+</html>

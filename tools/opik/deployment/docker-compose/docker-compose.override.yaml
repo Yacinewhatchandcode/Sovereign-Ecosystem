@@ -1,0 +1,33 @@
+services:
+  mysql:
+    ports:
+      - "3306:3306" # Exposing MySQL port to host
+
+  redis:
+    ports:
+      - "6379:6379" # Exposing Redis port to host
+
+  clickhouse:
+    ports:
+      - "8123:8123" # Exposing ClickHouse HTTP port to host
+      - "9000:9000" # Exposing ClickHouse Native Protocol port to host
+
+  zookeeper:
+    ports:
+      - "2181:2181"
+
+  minio:
+    ports:
+      - "9001:9000"   # MinIO API Port
+      - "9090:9090"   # MinIO Web UI Console
+
+  backend:
+    ports: !override
+      - "8080:8080" # Exposing backend HTTP port to host
+      - "3003:3003" # Exposing backend OpenAPI specification port to host
+
+  python-backend:
+    environment:
+      OPIK_URL_OVERRIDE: ${OPIK_URL_OVERRIDE:-http://host.docker.internal:8080}  # Default to host machine's backend
+    ports:
+      - "${PYTHON_BACKEND_PORT:-8000}:${PYTHON_BACKEND_PORT:-8000}" # Exposing Python backend HTTP port to host
