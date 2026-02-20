@@ -8,6 +8,17 @@
 
 ---
 
+<div align="center">
+
+https://github.com/user-attachments/assets/demo.mp4
+
+**▶️ Watch the Demo**
+
+</div>
+
+---
+
+
 ## 💡 About
 
 The full Sovereign Ecosystem: aSiReM autonomous agents, enterprise dashboard, multi-model routing, and self-healing infrastructure.
