@@ -30,3 +30,5 @@ Thumbs.db
 id_rsa
 id_ed25519
 credentials.json
+sovereign-dashboard/node_modules/
+outputs/
