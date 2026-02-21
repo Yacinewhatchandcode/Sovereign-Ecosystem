@@ -1,3 +1,0 @@
-This folder is deprecated.
-Use FACSvatar/addons/FACSvatar-Blender/ instead.
-

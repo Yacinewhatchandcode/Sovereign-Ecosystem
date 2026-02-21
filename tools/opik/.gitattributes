@@ -1,3 +1,0 @@
-*.java linguist-detectable=false
-*.mdx linguist-detectable=false
-*.sh text eol=lf

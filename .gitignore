@@ -1,50 +1,32 @@
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
 # Python
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-.Python
-env/
+.venv/
 venv/
-venv*/
-sovereign-dashboard/venv-speaking/
-pip-log.txt
-pip-delete-this-directory.txt
+.env
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
 
 # OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Dependencies
-node_modules/
-.npm/
-.cache/
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Build outputs
-dist/
-build/
-out/
-
-# Agent/System specific
+# Gemini
 .gemini/
-.agent/
+
+# Security - never commit secrets
+.env.local
+.env.production
+.env.development
+*.pem
+*.key
+id_rsa
+id_ed25519
+credentials.json
